@@ -9,7 +9,6 @@ public class Player : Character
     private Rigidbody rb;
     private MiniPool<Bullet> miniPoolBullet;
 
-
     public void FixedUpdate()
     {
         Move();
@@ -25,7 +24,21 @@ public class Player : Character
     void Update()
     {
         Move();
-        OnShoot();
+        if (canAttack) 
+        {
+            if(amountBullet > 0)
+            {
+                if(rb.velocity.sqrMagnitude < 0.1f)
+                {
+                    Debug.Log("here");
+
+                    if (targetPosition != null)
+                    {
+                        OnShoot();
+                    }
+                }
+            }
+        }
     }
 
     private void Move()
@@ -35,26 +48,34 @@ public class Player : Character
         if (rb.velocity.sqrMagnitude > 0)
         {
             transform.rotation = Quaternion.LookRotation(rb.velocity);
+        }
+        if (rb.velocity.sqrMagnitude > 1f)
+        {
             amountBullet = 1;
+            Target();
         }
     }
     private void OnShoot()
     {
-        
-        if (rb.velocity.sqrMagnitude < 0.1f && amountBullet > 0 && Target() != null)
-        {
-            amountBullet = 0;
-            miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
-        }
+        canAttack = false;
+        amountBullet = 0;
+        Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
+        bullet.OnInit(targetPosition.position);
+        Invoke("ResetAttack", 1.5f);
     }
-    public override  void OnInit()
+
+    private void ResetAttack()
+    {
+        canAttack = true;
+    }
+    public override void OnInit()
     {
         base.OnInit();
         miniPoolBullet = new MiniPool<Bullet>();
         miniPoolBullet.OnInit(bulletPrefab, 5, LevelManager.Instance.poolObj.transform);
     }
 
-    private Transform Target()
+    public Transform Target()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radiusSize, targetLayer);
         targetPosition =  hitColliders[0].transform;
