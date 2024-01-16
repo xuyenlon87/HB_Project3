@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Rigidbody rb;
     private float speed;
-    private Vector3 targetPosition;
+    private Vector3 target;
     private float dame;
     private float distanceMove;
     public float rangeSize;
     public void OnInit()
     {
-        Debug.Log(targetPosition);
         dame = 1;
         speed = 5f;
     }
     public void SetTarget(Vector3 target)
     {
-        targetPosition = target;
+        this.target = target;
     }
     public void OnDestroy()
     {
@@ -39,9 +37,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
+        Move();   
+    }
+
+    private void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         distanceMove += speed * Time.fixedDeltaTime;
         if (distanceMove >= rangeSize)
         {
@@ -49,5 +52,4 @@ public class Bullet : MonoBehaviour
         }
         Debug.Log(rangeSize);
     }
-
 }

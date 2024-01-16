@@ -23,15 +23,15 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
+        Target();
         if (!isDead)
         {
             if (rb.velocity.sqrMagnitude <= 0.1f)
             {
-                if(targetPosition != null)
+                if (target != null)
                 {
-                    transform.rotation = Quaternion.LookRotation(targetPosition.position);
+                    OnShoot();
                 }
-                OnShoot();
             }
         }
     }
@@ -52,12 +52,13 @@ public class Player : Character
     }
     private void OnShoot()
     {
-        if (canAttack && amountBullet > 0 && targetPosition != null)
+        transform.rotation = Quaternion.LookRotation(target.position);
+        if (canAttack && amountBullet > 0)
         {
             canAttack = false;
             amountBullet = 0;
             Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
-            bullet.SetTarget(targetPosition.position);
+            bullet.SetTarget(target.position);
             bullet.rangeSize = radiusSize;
             Invoke(nameof(ResetAttack), 1.5f);
         }
@@ -79,9 +80,12 @@ public class Player : Character
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radiusSize, targetLayer);
         if(hitColliders.Length > 0)
         {
-            targetPosition = hitColliders[0].transform;
-            return targetPosition;
+            target = hitColliders[0].transform;
         }
-        return null;
+        if(target != null && Vector3.Distance(transform.position, target.position) > radiusSize)
+        {
+            target = null;
+        }
+        return target;
     }
 }

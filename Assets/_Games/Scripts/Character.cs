@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public float radiusSize;
     public Transform playerGun;
     public LayerMask targetLayer;
-    public Transform targetPosition;
+    public Transform target;
     public bool canAttack;
     public bool isDead;
     public int level;
@@ -38,10 +38,6 @@ public class Character : MonoBehaviour
         level = 1;
     }
 
-    public int GetLevel()
-    {
-        return level;
-    }
     public void OnHit(float damage)
     {
         if (!isDead)
@@ -70,5 +66,6 @@ public class Character : MonoBehaviour
         speed += add * 0.05f;
         transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
         radiusSize += add * 0.05f;
+        level += add;
     } 
 }

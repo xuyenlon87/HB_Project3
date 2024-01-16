@@ -27,7 +27,7 @@ public class Exp : MonoBehaviour
         if(other.CompareTag("Bot") || other.CompareTag("Player"))
         {
             Character character = other.GetComponent<Character>();
-            level = Random.Range(1, character.GetLevel() + 1);
+            level = Random.Range(1, character.level);
             character.Upgrade(level);
             OnDestroy();
         }
