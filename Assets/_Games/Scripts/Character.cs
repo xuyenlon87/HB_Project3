@@ -12,7 +12,9 @@ public class Character : MonoBehaviour
     public LayerMask targetLayer;
     public Transform targetPosition;
     public bool canAttack;
-    private bool isDead;
+    public bool isDead;
+    public int level;
+    [SerializeField] GameObject expPotionPrefab;
 
 
     // Start is called before the first frame update
@@ -33,18 +35,40 @@ public class Character : MonoBehaviour
         amountBullet = 0;
         canAttack = true;
         isDead = false;
+        level = 1;
     }
 
+    public int GetLevel()
+    {
+        return level;
+    }
     public void OnHit(float damage)
     {
         if (!isDead)
         {
             hp -= damage;
-            if (isDead)
+            if (hp <=0)
             {
                 hp = 0;
+                isDead = true;
+                OnDeath();
             }
         }
-
     }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+        int random = Random.Range(0, 100);
+        if(random < 30)
+        {
+            Instantiate(expPotionPrefab, transform.position, Quaternion.identity, LevelManager.Instance.transform);
+        }
+    }
+    public void Upgrade(int add)
+    {
+        speed += add * 0.05f;
+        transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
+        radiusSize += add * 0.05f;
+    } 
 }

@@ -9,24 +9,25 @@ public class Bullet : MonoBehaviour
     private Vector3 targetPosition;
     private float dame;
     private float distanceMove;
-    private float rangeSize;
-    public void OnInit(Vector3 target)
+    public float rangeSize;
+    public void OnInit()
     {
-        targetPosition = target;
         Debug.Log(targetPosition);
         dame = 1;
         speed = 5f;
-        rangeSize = 5f;
     }
-
-    public void OnDespawn()
+    public void SetTarget(Vector3 target)
+    {
+        targetPosition = target;
+    }
+    public void OnDestroy()
     {
         Destroy(gameObject);
     }
 
     private void Start()
     {
-
+        OnInit();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,8 +35,7 @@ public class Bullet : MonoBehaviour
         if(other.CompareTag("Player") || other.CompareTag("Bot"))
         {
             other.GetComponent<Character>().OnHit(dame);
-            OnDespawn();
-
+            OnDestroy();
         }
     }
 
@@ -43,10 +43,11 @@ public class Bullet : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
         distanceMove += speed * Time.fixedDeltaTime;
-        if(distanceMove >= rangeSize)
+        if (distanceMove >= rangeSize)
         {
-            OnDespawn();
+            OnDestroy();
         }
+        Debug.Log(rangeSize);
     }
 
 }

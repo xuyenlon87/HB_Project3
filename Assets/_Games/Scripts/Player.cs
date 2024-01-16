@@ -23,20 +23,15 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        Move();
-        if (canAttack) 
+        if (!isDead)
         {
-            if(amountBullet > 0)
+            if (rb.velocity.sqrMagnitude <= 0.1f)
             {
-                if(rb.velocity.sqrMagnitude < 0.1f)
+                if(targetPosition != null)
                 {
-                    Debug.Log("here");
-
-                    if (targetPosition != null)
-                    {
-                        OnShoot();
-                    }
+                    transform.rotation = Quaternion.LookRotation(targetPosition.position);
                 }
+                OnShoot();
             }
         }
     }
@@ -57,11 +52,15 @@ public class Player : Character
     }
     private void OnShoot()
     {
-        canAttack = false;
-        amountBullet = 0;
-        Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
-        bullet.OnInit(targetPosition.position);
-        Invoke("ResetAttack", 1.5f);
+        if (canAttack && amountBullet > 0 && targetPosition != null)
+        {
+            canAttack = false;
+            amountBullet = 0;
+            Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
+            bullet.SetTarget(targetPosition.position);
+            bullet.rangeSize = radiusSize;
+            Invoke(nameof(ResetAttack), 1.5f);
+        }
     }
 
     private void ResetAttack()
@@ -78,8 +77,11 @@ public class Player : Character
     public Transform Target()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radiusSize, targetLayer);
-        targetPosition =  hitColliders[0].transform;
-        return targetPosition;
-        
+        if(hitColliders.Length > 0)
+        {
+            targetPosition = hitColliders[0].transform;
+            return targetPosition;
+        }
+        return null;
     }
 }
