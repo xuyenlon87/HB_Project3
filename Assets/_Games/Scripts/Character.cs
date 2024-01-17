@@ -58,7 +58,8 @@ public class Character : MonoBehaviour
         int random = Random.Range(0, 100);
         if(random < 30)
         {
-            Instantiate(expPotionPrefab, transform.position, Quaternion.identity, LevelManager.Instance.transform);
+            GameObject expPotion =  Instantiate(expPotionPrefab, transform.position, Quaternion.identity, LevelManager.Instance.transform);
+            expPotion.GetComponent<Exp>().level = Random.Range(1, level + 1);
         }
     }
     public void Upgrade(int add)

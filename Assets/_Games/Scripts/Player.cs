@@ -30,7 +30,11 @@ public class Player : Character
             {
                 if (target != null)
                 {
-                    OnShoot();
+                    transform.rotation = Quaternion.LookRotation(target.position);
+                    if (transform.rotation == Quaternion.LookRotation(target.position))
+                    {
+                        OnShoot();
+                    }
                 }
             }
         }
@@ -52,7 +56,6 @@ public class Player : Character
     }
     private void OnShoot()
     {
-        transform.rotation = Quaternion.LookRotation(target.position);
         if (canAttack && amountBullet > 0)
         {
             canAttack = false;
@@ -79,12 +82,16 @@ public class Player : Character
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radiusSize, targetLayer);
         if(hitColliders.Length > 0)
-        {
+        {      
             target = hitColliders[0].transform;
+            Debug.Log("here");
+
         }
-        if(target != null && Vector3.Distance(transform.position, target.position) > radiusSize)
+        if (target != null && Vector3.Distance(transform.position, target.position) > radiusSize)
         {
             target = null;
+            Debug.Log("here");
+
         }
         return target;
     }

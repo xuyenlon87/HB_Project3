@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Exp : MonoBehaviour
 {
-    private int level;
+    public int level;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +14,8 @@ public class Exp : MonoBehaviour
     // Update is called once per frame
     private void OnInit()
     {
-        Invoke("OnDestroy", 5f);
+        level = 1;
+        Invoke(nameof(OnDestroy), 5f);
     }
 
     private void OnDestroy()
@@ -27,7 +28,6 @@ public class Exp : MonoBehaviour
         if(other.CompareTag("Bot") || other.CompareTag("Player"))
         {
             Character character = other.GetComponent<Character>();
-            level = Random.Range(1, character.level);
             character.Upgrade(level);
             OnDestroy();
         }

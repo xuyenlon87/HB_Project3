@@ -7,12 +7,14 @@ public class Bullet : MonoBehaviour
     private float speed;
     private Vector3 target;
     private float dame;
-    private float distanceMove;
     public float rangeSize;
+    private Vector3 startPos;
     public void OnInit()
     {
         dame = 1;
         speed = 5f;
+        startPos = transform.position;
+        rangeSize = 5f;
     }
     public void SetTarget(Vector3 target)
     {
@@ -45,11 +47,9 @@ public class Bullet : MonoBehaviour
     private void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        distanceMove += speed * Time.fixedDeltaTime;
-        if (distanceMove >= rangeSize)
+        if (Vector3.Distance(startPos, transform.position) >= rangeSize)
         {
             OnDestroy();
         }
-        Debug.Log(rangeSize);
     }
 }
