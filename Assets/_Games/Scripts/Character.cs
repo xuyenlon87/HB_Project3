@@ -9,12 +9,19 @@ public class Character : MonoBehaviour
     public float hp;
     public float radiusSize;
     public Transform playerGun;
-    public LayerMask targetLayer;
+    public LayerMask characterLayer;
     public Transform target;
     public bool canAttack;
     public bool isDead;
     public int level;
     [SerializeField] GameObject expPotionPrefab;
+    public Bullet bulletPrefab;
+    public Vector3 lookTarget;
+
+
+
+    private MiniPool<Bullet> miniPoolBullet;
+
 
 
     // Start is called before the first frame update
@@ -36,6 +43,9 @@ public class Character : MonoBehaviour
         canAttack = true;
         isDead = false;
         level = 1;
+        miniPoolBullet = new MiniPool<Bullet>();
+        miniPoolBullet.OnInit(bulletPrefab, 5, LevelManager.Instance.poolObj.transform);
+        speed = 5f;
     }
 
     public void OnHit(float damage)
@@ -58,7 +68,7 @@ public class Character : MonoBehaviour
         int random = Random.Range(0, 100);
         if(random < 30)
         {
-            GameObject expPotion =  Instantiate(expPotionPrefab, transform.position, Quaternion.identity, LevelManager.Instance.transform);
+            GameObject expPotion =  Instantiate(expPotionPrefab, new Vector3(transform.position.x, -1.2f, transform.position.z), Quaternion.identity, LevelManager.Instance.transform);
             expPotion.GetComponent<Exp>().level = Random.Range(1, level + 1);
         }
     }
@@ -68,5 +78,35 @@ public class Character : MonoBehaviour
         transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
         radiusSize += add * 0.05f;
         level += add;
-    } 
+    }
+    public virtual void OnShoot()
+    {
+        if (canAttack && amountBullet > 0)
+        {
+            canAttack = false;
+            amountBullet = 0;
+            Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
+            bullet.SetTarget(target.position);
+            bullet.rangeSize = radiusSize;
+            Invoke(nameof(ResetAttack), 1.5f);
+        }
+    }
+    public void ResetAttack()
+    {
+        canAttack = true;
+    }
+    public Transform Target()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radiusSize, characterLayer);
+        if (hitColliders.Length > 0)
+        {
+            target = hitColliders[0].transform;
+            lookTarget = new Vector3(target.position.x, 0f, target.position.z);
+        }
+        if (target != null && Vector3.Distance(transform.position, target.position) > radiusSize)
+        {
+            target = null;
+        }
+        return target;
+    }
 }

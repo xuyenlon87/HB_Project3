@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
     private void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        if (Vector3.Distance(startPos, transform.position) >= rangeSize)
+        if (Vector3.Distance(startPos, transform.position) == rangeSize || Vector3.Distance(transform.position, target) <=0.1f)
         {
             OnDestroy();
         }
