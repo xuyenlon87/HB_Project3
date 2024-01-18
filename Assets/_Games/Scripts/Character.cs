@@ -10,7 +10,6 @@ public class Character : MonoBehaviour
     public float hp;
     public float radiusSize;
     public Transform playerGun;
-    public LayerMask characterLayer;
     public Transform target;
     public bool canAttack;
     public bool isDead;
@@ -18,24 +17,8 @@ public class Character : MonoBehaviour
     [SerializeField] GameObject expPotionPrefab;
     public Bullet bulletPrefab;
     public Vector3 lookTarget;
-
-
-
     private MiniPool<Bullet> miniPoolBullet;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public virtual void OnInit()
     {
         radiusSize = 5;
@@ -89,7 +72,7 @@ public class Character : MonoBehaviour
             amountBullet = 0;
             Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
             bullet.SetTarget(target.position);
-            bullet.rangeSize = radiusSize;
+            bullet.SetRangeSize(radiusSize);
             Invoke(nameof(ResetAttack), 1.5f);
         }
     }
@@ -102,6 +85,7 @@ public class Character : MonoBehaviour
         if(other.CompareTag("Bot")|| other.CompareTag("Player"))
         {
             target = other.transform;
+            lookTarget = new Vector3(target.position.x, 0, target.position.z);
         }
     }
     public void OnTriggerExit(Collider other)
