@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [SerializeField] private GameObject sight;
     public float speed;
     public int amountBullet;
     public float hp;
@@ -78,6 +79,7 @@ public class Character : MonoBehaviour
         transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
         radiusSize += add * 0.05f;
         level += add;
+        sight.transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
     }
     public virtual void OnShoot()
     {
@@ -95,18 +97,18 @@ public class Character : MonoBehaviour
     {
         canAttack = true;
     }
-    public Transform Target()
+    public void OnTriggerEnter(Collider other)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radiusSize, characterLayer);
-        if (hitColliders.Length > 0)
+        if(other.CompareTag("Bot")|| other.CompareTag("Player"))
         {
-            target = hitColliders[0].transform;
-            lookTarget = new Vector3(target.position.x, 0f, target.position.z);
+            target = other.transform;
         }
-        if (target != null && Vector3.Distance(transform.position, target.position) > radiusSize)
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Bot") || other.CompareTag("Player"))
         {
             target = null;
         }
-        return target;
     }
 }

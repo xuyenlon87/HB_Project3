@@ -29,7 +29,6 @@ public class Bot : Character
         {
             amountBullet = 1;
         }
-        Target();
         if (target != null)
         {
             transform.rotation = Quaternion.LookRotation(lookTarget);
@@ -46,11 +45,6 @@ public class Bot : Character
             {
                 StartCoroutine(ChangeDestination());
             }
-        }
-        else if(target == null)
-        {
-            navMesh.isStopped = false;
-            StartCoroutine(ChangeDestination());
         }
     }
     public override void OnInit()

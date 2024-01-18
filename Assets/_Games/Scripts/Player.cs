@@ -20,7 +20,6 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        Target();
         if (!isDead)
         {
             if (rb.velocity.sqrMagnitude <= 0.1f)
