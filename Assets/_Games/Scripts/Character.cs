@@ -71,28 +71,16 @@ public class Character : MonoBehaviour
             canAttack = false;
             amountBullet = 0;
             Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
-            bullet.SetTarget(target.position);
-            bullet.SetRangeSize(radiusSize);
-            Invoke(nameof(ResetAttack), 1.5f);
+            if(target != null)
+            {
+                bullet.SetTarget(target.position);
+                bullet.SetRangeSize(radiusSize);
+                Invoke(nameof(ResetAttack), 1.5f);
+            }
         }
     }
     public void ResetAttack()
     {
         canAttack = true;
-    }
-    public void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Bot")|| other.CompareTag("Player"))
-        {
-            target = other.transform;
-            lookTarget = new Vector3(target.position.x, 0, target.position.z);
-        }
-    }
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Bot") || other.CompareTag("Player"))
-        {
-            target = null;
-        }
     }
 }

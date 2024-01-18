@@ -8,19 +8,19 @@ public class Bot : Character
 {
     private NavMeshAgent navMesh;
     private Vector3 targetPos;
+    private IState<Bot> currentState;
     // Start is called before the first frame update
     void Start()
     {
         OnInit();
-        StartCoroutine(ChangeDestination());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Nếu có target, ko có đạn => di chuyển để lấy đạn => bắn
-        //có targett => có đạn => dừng navmesh => đúng hướng => bắn
-        //Nếu không có target => di chuyển lung tung
+        ////Nếu có target, ko có đạn => di chuyển để lấy đạn => bắn
+        ////có targett => có đạn => dừng navmesh => đúng hướng => bắn
+        ////Nếu không có target => di chuyển lung tung
         if (navMesh.velocity.sqrMagnitude > 0)
         {
             transform.rotation = Quaternion.LookRotation(navMesh.velocity);
@@ -29,22 +29,10 @@ public class Bot : Character
         {
             amountBullet = 1;
         }
-        if (target != null)
-        {
-            transform.rotation = Quaternion.LookRotation(lookTarget);
 
-            if (amountBullet > 0)
-            {
-                navMesh.isStopped = true;
-                if (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(lookTarget)) <= 0.1f)
-                {
-                    OnShoot();
-                }
-            }
-            else if(amountBullet < 1)
-            {
-                StartCoroutine(ChangeDestination());
-            }
+        if (currentState != null && !isDead)
+        {
+            currentState.OnExecute(this);
         }
     }
     public override void OnInit()
@@ -52,6 +40,8 @@ public class Bot : Character
         base.OnInit();
         navMesh = GetComponent<NavMeshAgent>();
         navMesh.speed = speed;
+        ChangeState(new PatrolState());
+
     }
 
     private Vector3 GetRandomPointOnNavMesh()
@@ -65,7 +55,7 @@ public class Bot : Character
         }
         return transform.position;
     }
-    private IEnumerator ChangeDestination()
+    public IEnumerator Move()
     {
         while (true)
         {
@@ -75,8 +65,48 @@ public class Bot : Character
         }
     }
 
+    public IEnumerator ShootAndMove()
+    {
+        while (true)
+        {
+            OnShoot();
+            yield return new WaitForSeconds(0.1f);
+            transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), speed*Time.deltaTime);
+            yield return new WaitForSeconds(1.4f);
+        }
+    }
     public override void OnShoot()
     {
+        transform.rotation = Quaternion.LookRotation(lookTarget);
         base.OnShoot();
+    }
+    public void ChangeState(IState<Bot> newState)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit(this);
+        }
+        currentState = newState;
+        if (currentState != null)
+        {
+            currentState.OnEnter(this);
+        }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bot") || other.CompareTag("Player"))
+        {
+            target = other.transform;
+            lookTarget = new Vector3(target.position.x, 0, target.position.z);
+            ChangeState(new AttackState());
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Bot") || other.CompareTag("Player"))
+        {
+            target = null;
+            ChangeState(new PatrolState());
+        }
     }
 }

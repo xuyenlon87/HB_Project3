@@ -54,5 +54,19 @@ public class Player : Character
     {
         base.OnInit();
     }
-
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bot"))
+        {
+            target = other.transform;
+            lookTarget = new Vector3(target.position.x, 0, target.position.z);
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Bot"))
+        {
+            target = null;
+        }
+    }
 }
