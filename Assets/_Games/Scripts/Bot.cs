@@ -9,6 +9,8 @@ public class Bot : Character
     public NavMeshAgent navMesh;
     private Vector3 targetPos;
     private IState<Bot> currentState;
+    private NavMeshHit hit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,10 +47,8 @@ public class Bot : Character
     }
     private Vector3 GetRandomPointOnNavMesh()
     {
-        NavMeshHit hit;
-        Vector3 randomPoint = transform.position + Random.insideUnitSphere * 15f;
-        float randomRadius = Random.Range(5, 15);
-        if (NavMesh.SamplePosition(randomPoint, out hit, randomRadius, NavMesh.AllAreas))
+        Vector3 randomPoint = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
+        if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
         {
             return hit.position;
         }
