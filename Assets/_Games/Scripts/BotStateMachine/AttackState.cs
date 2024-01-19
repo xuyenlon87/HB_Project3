@@ -7,19 +7,17 @@ public class AttackState : IState<Bot>
     private int state;
     public void OnEnter(Bot bot)
     {
+        bot.navMesh.isStopped = true;
         state = Random.Range(0, 3);
         switch (state)
         {
-            case 0: 
-                bot.ChangeState(new PatrolState());
-                break;
-            case 1:
+            case 0:
                 bot.StartCoroutine(bot.ShootAndMove());
                 break;
-            case 2:
+            case 1:
                 bot.StartCoroutine(bot.MoveAroundAndShoot());
                 break;
-            case 3:
+            case 2:
                 bot.StartCoroutine(bot.AvoidAndShoot());
                 break;
         }
@@ -37,6 +35,6 @@ public class AttackState : IState<Bot>
 
     public void OnExit(Bot bot)
     {
-
+        bot.navMesh.isStopped = false;
     }
 }

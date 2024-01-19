@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Bot : Character
 {
-    private NavMeshAgent navMesh;
+    public NavMeshAgent navMesh;
     private Vector3 targetPos;
     private IState<Bot> currentState;
     // Start is called before the first frame update
@@ -60,7 +60,7 @@ public class Bot : Character
         {
             targetPos = GetRandomPointOnNavMesh();
             navMesh.SetDestination(targetPos);
-            yield return new WaitForSeconds(Random.Range(0.1f, 1f));
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
 
@@ -70,23 +70,23 @@ public class Bot : Character
         {
             while (true)
             {
-                //OnShoot();
-                transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), speed * Time.deltaTime);
+                OnShoot();
+                transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), navMesh.speed * Time.deltaTime);
                 yield return new WaitForSeconds(timeResetAttack-0.1f);
             }
         }
-        
     }
     public IEnumerator MoveAroundAndShoot()
     {
         if (target != null)
         {
+            OnShoot();
             while (true)
             {
                 int random = Random.Range(-3,3);
                 Vector3 targetPosMoveAround = new Vector3(target.position.x + random, target.position.y, target.position.z + random);
-                transform.position = Vector3.MoveTowards(transform.position,targetPosMoveAround, speed * Time.deltaTime);
-                yield return new WaitForSeconds(timeResetAttack-0.1f);
+                transform.position = Vector3.MoveTowards(transform.position,targetPosMoveAround, navMesh.speed * Time.deltaTime);
+                yield return new WaitForSeconds(timeResetAttack - 0.1f);
                 OnShoot();
             }
         }     
@@ -95,12 +95,13 @@ public class Bot : Character
     {
         if (target != null)
         {
+            OnShoot();
             while (true)
             {
                 int random = Random.Range(-3, 3);
                 Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, transform.position.y, transform.position.z + random);
-                transform.position = Vector3.MoveTowards(transform.position, targetAvoidAndShoot, speed * Time.deltaTime);
-                yield return new WaitForSeconds(timeResetAttack-0.1f);
+                transform.position = Vector3.MoveTowards(transform.position, targetAvoidAndShoot, navMesh.speed * Time.deltaTime);
+                yield return new WaitForSeconds(timeResetAttack - 0.1f);
                 OnShoot();
             }
         }
@@ -137,4 +138,5 @@ public class Bot : Character
             ChangeState(new PatrolState());
         }
     }
+
 }

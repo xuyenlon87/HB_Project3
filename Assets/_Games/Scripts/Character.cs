@@ -54,9 +54,9 @@ public class Character : MonoBehaviour
         int random = Random.Range(0, 100);
         if(random < 30)
         {
-            Debug.Log(random);
-            GameObject expPotion =  Instantiate(expPotionPrefab, new Vector3(transform.position.x, -1.2f, transform.position.z), Quaternion.identity, LevelManager.Instance.transform);
+            GameObject expPotion =  Instantiate(expPotionPrefab, new Vector3(transform.position.x, 0.25f, transform.position.z), Quaternion.identity, LevelManager.Instance.transform);
             expPotion.GetComponent<Exp>().level = Random.Range(1, level + 1);
+            Debug.Log(random);
         }
     }
     public void Upgrade(int add, Bot bot = null)
@@ -71,19 +71,19 @@ public class Character : MonoBehaviour
     }
     public virtual void OnShoot()
     {
-        RotateTarget();
-        if (canAttack && amountBullet > 0)
+        if(target != null)
         {
-            canAttack = false;
-            amountBullet = 0;
-            Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
-            if(target != null)
+            RotateTarget();
+            if (canAttack && amountBullet > 0)
             {
+                canAttack = false;
+                amountBullet = 0;
+                Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
                 bullet.SetTarget(target.position);
                 bullet.SetRangeSize(radiusSize);
+                Invoke(nameof(ResetAttack), timeResetAttack);
             }
-            Invoke(nameof(ResetAttack), timeResetAttack);
-        }
+        }      
     }
     public void ResetAttack()
     {
