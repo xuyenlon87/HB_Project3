@@ -68,7 +68,7 @@ public class Bot : Character
     {
         if (target != null)
         {
-            while (true)
+            while (target != null)
             {
                 OnShoot();
                 transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), navMesh.speed * Time.deltaTime);
@@ -81,7 +81,7 @@ public class Bot : Character
         if (target != null)
         {
             OnShoot();
-            while (true)
+            while (target != null)
             {
                 int random = Random.Range(-3,3);
                 Vector3 targetPosMoveAround = new Vector3(target.position.x + random, target.position.y, target.position.z + random);
@@ -96,7 +96,7 @@ public class Bot : Character
         if (target != null)
         {
             OnShoot();
-            while (true)
+            while (target != null)
             {
                 int random = Random.Range(-3, 3);
                 Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, transform.position.y, transform.position.z + random);

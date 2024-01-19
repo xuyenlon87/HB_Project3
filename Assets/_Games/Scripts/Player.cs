@@ -6,6 +6,7 @@ public class Player : Character
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     private Rigidbody rb;
+    [SerializeField] private BulletBoomerang boomerang;
     public void FixedUpdate()
     {
         Move();
@@ -29,6 +30,12 @@ public class Player : Character
                     OnShoot();
                 }
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("Space");
+            Instantiate(boomerang, playerGun.position + Vector3.forward, Quaternion.identity);
         }
     }
 
