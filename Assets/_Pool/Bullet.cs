@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     private float dame;
     private float rangeSize;
     private Vector3 startPos;
+    [SerializeField] GameObject fireballPinkVFX;
     public void OnInit()
     {
         dame = 1;
@@ -38,6 +39,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.CompareTag("Player") || other.CompareTag("Bot"))
         {
+            Instantiate(fireballPinkVFX, other.transform.position, Quaternion.identity);
             other.GetComponent<Character>().OnHit(dame);
             OnDestroy();
         }

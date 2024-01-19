@@ -18,15 +18,9 @@ public class Bot : Character
     // Update is called once per frame
     void Update()
     {
-        ////Nếu có target, ko có đạn => di chuyển để lấy đạn => bắn
-        ////có targett => có đạn => dừng navmesh => đúng hướng => bắn
-        ////Nếu không có target => di chuyển lung tung
-        if (navMesh.velocity.sqrMagnitude > 0)
-        {
-            transform.rotation = Quaternion.LookRotation(navMesh.velocity);
-        }
         if (navMesh.velocity.sqrMagnitude > 1f)
         {
+            transform.rotation = Quaternion.LookRotation(navMesh.velocity);
             amountBullet = 1;
         }
 
@@ -44,6 +38,11 @@ public class Bot : Character
 
     }
 
+    public float SetSpeed(float speed)
+    {
+        navMesh.speed = speed;
+        return navMesh.speed;
+    }
     private Vector3 GetRandomPointOnNavMesh()
     {
         NavMeshHit hit;
@@ -67,17 +66,47 @@ public class Bot : Character
 
     public IEnumerator ShootAndMove()
     {
-        while (true)
+        if (target != null)
         {
-            OnShoot();
-            yield return new WaitForSeconds(0.1f);
-            transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), speed*Time.deltaTime);
-            yield return new WaitForSeconds(1.4f);
+            while (true)
+            {
+                //OnShoot();
+                transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), speed * Time.deltaTime);
+                yield return new WaitForSeconds(timeResetAttack-0.1f);
+            }
+        }
+        
+    }
+    public IEnumerator MoveAroundAndShoot()
+    {
+        if (target != null)
+        {
+            while (true)
+            {
+                int random = Random.Range(-3,3);
+                Vector3 targetPosMoveAround = new Vector3(target.position.x + random, target.position.y, target.position.z + random);
+                transform.position = Vector3.MoveTowards(transform.position,targetPosMoveAround, speed * Time.deltaTime);
+                yield return new WaitForSeconds(timeResetAttack-0.1f);
+                OnShoot();
+            }
+        }     
+    }
+    public IEnumerator AvoidAndShoot()
+    {
+        if (target != null)
+        {
+            while (true)
+            {
+                int random = Random.Range(-3, 3);
+                Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, transform.position.y, transform.position.z + random);
+                transform.position = Vector3.MoveTowards(transform.position, targetAvoidAndShoot, speed * Time.deltaTime);
+                yield return new WaitForSeconds(timeResetAttack-0.1f);
+                OnShoot();
+            }
         }
     }
     public override void OnShoot()
     {
-        transform.rotation = Quaternion.LookRotation(lookTarget);
         base.OnShoot();
     }
     public void ChangeState(IState<Bot> newState)
@@ -97,7 +126,6 @@ public class Bot : Character
         if (other.CompareTag("Bot") || other.CompareTag("Player"))
         {
             target = other.transform;
-            lookTarget = new Vector3(target.position.x, 0, target.position.z);
             ChangeState(new AttackState());
         }
     }

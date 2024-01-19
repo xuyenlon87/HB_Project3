@@ -7,7 +7,7 @@ public class AttackState : IState<Bot>
     private int state;
     public void OnEnter(Bot bot)
     {
-        state = Random.Range(0, 2);
+        state = Random.Range(0, 3);
         switch (state)
         {
             case 0: 
@@ -16,7 +16,12 @@ public class AttackState : IState<Bot>
             case 1:
                 bot.StartCoroutine(bot.ShootAndMove());
                 break;
-            //case 2:         
+            case 2:
+                bot.StartCoroutine(bot.MoveAroundAndShoot());
+                break;
+            case 3:
+                bot.StartCoroutine(bot.AvoidAndShoot());
+                break;
         }
         Debug.Log(state);
 
@@ -24,7 +29,10 @@ public class AttackState : IState<Bot>
 
     public void OnExecute(Bot bot)
     {
-
+        if(bot.target == null)
+        {
+            bot.ChangeState(new PatrolState());
+        }
     }
 
     public void OnExit(Bot bot)

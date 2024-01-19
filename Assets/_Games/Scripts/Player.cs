@@ -26,11 +26,7 @@ public class Player : Character
             {
                 if (target != null)
                 {
-                    transform.rotation = Quaternion.LookRotation(lookTarget);
-                    if (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(lookTarget)) < 0.1f)
-                    {
-                        OnShoot();
-                    }
+                    OnShoot();
                 }
             }
         }
@@ -40,12 +36,9 @@ public class Player : Character
     {
         Vector3 direction = Vector3.forward * fixedJoystick.Vertical + Vector3.right * fixedJoystick.Horizontal;
         rb.velocity = direction * speed;
-        if (rb.velocity.sqrMagnitude > 0)
-        {
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
-        }
         if (rb.velocity.sqrMagnitude > 1f)
         {
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
             amountBullet = 1;
         }
     }
@@ -54,7 +47,7 @@ public class Player : Character
     {
         base.OnInit();
     }
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bot"))
         {
@@ -62,7 +55,7 @@ public class Player : Character
             lookTarget = new Vector3(target.position.x, 0, target.position.z);
         }
     }
-    public void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Bot"))
         {

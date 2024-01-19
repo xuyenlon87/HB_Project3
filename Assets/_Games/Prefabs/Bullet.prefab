@@ -111,8 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb988e55b45fd948933f5d6be967aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 7007606654688149959}
-  rangeSize: 0
+  fireballPinkVFX: {fileID: 1327142519841044, guid: 961bc7a08d49b4b45b56a3c4c3d2c20d, type: 3}
 --- !u!54 &7007606654688149959
 Rigidbody:
   m_ObjectHideFlags: 0
