@@ -149,6 +149,12 @@ public enum PoolType
     Bullet_2,
     Bullet_3,
     Bullet_4,
+    Bullet_5,
+    Bullet_6,
+    Bullet_7,
+    Bullet_8,
+    Bullet_9,
+    Bullet_10,
 }
 
 

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Bullet : BulletMain
 {
+    private void Update()
+    {
+        Move();
+    }
     public override void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);

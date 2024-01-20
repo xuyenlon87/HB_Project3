@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] public GameObject poolObj;
+    public GameObject poolObj;
     public static LevelManager Instance
     {
         get

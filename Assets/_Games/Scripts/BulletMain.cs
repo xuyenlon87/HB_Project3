@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMain : MonoBehaviour
+public class BulletMain : GameUnit
 {
     public float speed;
     public Vector3 target;
     public float dame;
     public float rangeSize;
     public Vector3 startPos;
-    [SerializeField] GameObject fireballPinkVFX;
+    public GameObject VFX;
     private void Update()
     {
     }
@@ -42,7 +42,7 @@ public class BulletMain : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Bot"))
         {
-            Instantiate(fireballPinkVFX, other.transform.position, Quaternion.identity);
+            Instantiate(VFX, other.transform.position, Quaternion.identity);
             other.GetComponent<Character>().OnHit(dame);
             OnDestroy();
         }

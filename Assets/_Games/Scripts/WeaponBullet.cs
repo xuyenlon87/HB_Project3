@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class WeaponBullet : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Shoot(Character character)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Bullet bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_3, character.playerGun.transform.position, Quaternion.identity);
+        bullet.SetTarget(character.target.position);
+        bullet.SetRangeSize(character.radiusSize);
     }
 }
