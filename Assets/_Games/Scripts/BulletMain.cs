@@ -14,7 +14,6 @@ public class BulletMain : MonoBehaviour
     {
     }
 
-
     private void Start()
     {
         OnInit();
@@ -48,4 +47,9 @@ public class BulletMain : MonoBehaviour
             OnDestroy();
         }
     }
+
+    public virtual void Move()
+    {
+
+    } 
 }
