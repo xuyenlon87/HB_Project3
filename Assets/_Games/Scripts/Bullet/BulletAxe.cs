@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletAce : BulletMain
+public class BulletAxe : BulletMain
 {
     private float rotationSpeed = 60f;
 

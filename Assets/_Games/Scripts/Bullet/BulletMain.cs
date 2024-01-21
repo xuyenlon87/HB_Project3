@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletMain : GameUnit
 {
+
     public float speed;
     public Vector3 target;
     public float dame;
