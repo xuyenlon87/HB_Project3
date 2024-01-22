@@ -7,11 +7,7 @@ public class AttackState : IState<Bot>
     private int state;
     public void OnEnter(Bot bot)
     {
-        if(bot.amountBullet <= 0)
-        {
-            bot.ChangeState(new PatrolState());
-        }
-        else
+        if(bot.amountBullet >=1)
         {
             bot.navMesh.isStopped = true;
             state = Random.Range(0, 3);

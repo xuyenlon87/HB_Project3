@@ -6,7 +6,7 @@ public class Bullet : BulletMain
 {
     private void Start()
     {
-        base.OnInit();
+        OnInit();
     }
     private void Update()
     {

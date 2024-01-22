@@ -46,14 +46,13 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        currentBullet = BulletType.Boomerang;
+        //currentBullet = BulletType.Boomerang;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bot"))
         {
             target = other.transform;
-            lookTarget = new Vector3(target.position.x, 0, target.position.z);
         }
     }
     private void OnTriggerExit(Collider other)

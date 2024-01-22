@@ -106,7 +106,7 @@ public class Character : MonoBehaviour
                      bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
 
                 }
-                Debug.Log(bulletStart.position);
+                bullet.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                 bullet.SetTarget(target.position);
                 bullet.SetRangeSize(radiusSize);
                 canAttack = false;
@@ -128,6 +128,7 @@ public class Character : MonoBehaviour
             directionToTarget.y = 0f;
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
+            Debug.LogError("here");
         }
     }
 }

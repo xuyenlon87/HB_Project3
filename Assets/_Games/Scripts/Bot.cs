@@ -106,10 +106,6 @@ public class Bot : Character
             }
         }
     }
-    public override void OnShoot()
-    {
-        base.OnShoot();
-    }
     public void ChangeState(IState<Bot> newState)
     {
         if (currentState != null)

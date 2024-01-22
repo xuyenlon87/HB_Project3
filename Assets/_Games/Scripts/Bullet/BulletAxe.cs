@@ -8,7 +8,7 @@ public class BulletAxe : BulletMain
 
     private void Start()
     {
-        base.OnInit();
+        OnInit();
     }
     private void Update()
     {
