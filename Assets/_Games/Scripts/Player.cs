@@ -6,7 +6,6 @@ public class Player : Character
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     private Rigidbody rb;
-    [SerializeField] private BulletBoomerang boomerang;
     public void FixedUpdate()
     {
         Move();
@@ -31,12 +30,6 @@ public class Player : Character
                 }
             }
         }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("Space");
-            Instantiate(boomerang, playerGun.position + Vector3.forward, Quaternion.identity);
-        }
     }
 
     private void Move()
@@ -53,6 +46,7 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
+        currentBullet = BulletType.Boomerang;
     }
     private void OnTriggerEnter(Collider other)
     {

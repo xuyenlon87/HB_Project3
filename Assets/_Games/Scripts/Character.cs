@@ -4,21 +4,31 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public enum BulletType
+    {
+        Bullet,
+        Axe,
+        Boomerang,
+    }
     [SerializeField] private GameObject sight;
     public float speed;
     public int amountBullet;
     public float hp;
     public float radiusSize;
-    public Transform playerGun;
+    public GameObject playerGun;
     public Transform target;
     public bool canAttack;
     public bool isDead;
     public int level;
     public float timeResetAttack;
     [SerializeField] GameObject expPotionPrefab;
-    public Bullet bulletPrefab;
     public Vector3 lookTarget;
+    public Transform charaterImg;
     private MiniPool<Bullet> miniPoolBullet;
+    public BulletType currentBullet;
+    public Transform bulletStart;
+    public BulletMain bullet;
+
 
     public virtual void OnInit()
     {
@@ -28,10 +38,9 @@ public class Character : MonoBehaviour
         canAttack = true;
         isDead = false;
         level = 1;
-        miniPoolBullet = new MiniPool<Bullet>();
-        miniPoolBullet.OnInit(bulletPrefab, 5, LevelManager.Instance.poolObj.transform);
         speed = 5f;
         timeResetAttack = 2f;
+        currentBullet = BulletType.Bullet;
     }
 
     public void OnHit(float damage)
@@ -47,7 +56,13 @@ public class Character : MonoBehaviour
             }
         }
     }
-
+    public void ChangeBullet(BulletType newBullet)
+    {
+        if(currentBullet != newBullet)
+        {
+            currentBullet = newBullet;
+        }
+    }
     public void OnDeath()
     {
         Destroy(gameObject);
@@ -62,7 +77,7 @@ public class Character : MonoBehaviour
     public void Upgrade(int add, Bot bot = null)
     {
         speed += add * 0.05f;
-        transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
+        charaterImg.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
         radiusSize += add * 0.05f;
         level += add;
         sight.transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
@@ -76,17 +91,33 @@ public class Character : MonoBehaviour
             RotateTarget();
             if (canAttack && amountBullet > 0)
             {
-                canAttack = false;
-                amountBullet = 0;
-                Bullet bullet = miniPoolBullet.Spawn(playerGun.transform.position, Quaternion.identity, LevelManager.Instance.poolObj.transform);
+                playerGun.SetActive(false);
+                if(currentBullet == BulletType.Bullet)
+                {
+                      bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
+                }
+                else if(currentBullet == BulletType.Axe)
+                {
+                     bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
+
+                }
+                else if(currentBullet == BulletType.Boomerang)
+                {
+                     bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
+
+                }
+                Debug.Log(bulletStart.position);
                 bullet.SetTarget(target.position);
                 bullet.SetRangeSize(radiusSize);
+                canAttack = false;
+                amountBullet = 0;
                 Invoke(nameof(ResetAttack), timeResetAttack);
             }
         }      
     }
     public void ResetAttack()
     {
+        playerGun.SetActive(true);
         canAttack = true;
     }
     public void RotateTarget()

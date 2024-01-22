@@ -7,7 +7,7 @@ public class AttackState : IState<Bot>
     private int state;
     public void OnEnter(Bot bot)
     {
-        if(bot.amountBullet < 1)
+        if(bot.amountBullet <= 0)
         {
             bot.ChangeState(new PatrolState());
         }
@@ -27,8 +27,6 @@ public class AttackState : IState<Bot>
                     bot.StartCoroutine(bot.AvoidAndShoot());
                     break;
             }
-            Debug.Log(state);
-
         }
     }
 

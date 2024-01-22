@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject poolObj;
+    public Transform poolObj;
+    public Transform poolBullet;
     public static LevelManager Instance
     {
         get

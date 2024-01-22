@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &187771769362920160
 Transform:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2749960574865717668}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.43, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -207,7 +207,7 @@ Transform:
   - {fileID: 3617098153346833037}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &2749960574865717599
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -305,15 +305,17 @@ MonoBehaviour:
   amountBullet: 0
   hp: 0
   radiusSize: 0
-  playerGun: {fileID: 2749960575453278049}
+  playerGun: {fileID: 5248188507415299997}
   target: {fileID: 0}
   canAttack: 0
   isDead: 0
   level: 0
   timeResetAttack: 0
   expPotionPrefab: {fileID: 6026782607143296688, guid: a583bbaeafcd58a4f81ccc50483724d7, type: 3}
-  bulletPrefab: {fileID: 7007606654688149958, guid: b1c55847b21933f40856b83cd0e270a4, type: 3}
   lookTarget: {x: 0, y: 0, z: 0}
+  charaterImg: {fileID: 8374166778817809928}
+  currentBullet: 0
+  bulletStart: {fileID: 2749960575453278049}
   navMesh: {fileID: 0}
 --- !u!195 &2749960574865717597
 NavMeshAgent:
@@ -361,7 +363,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2749960575453278050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 1}
+  m_LocalPosition: {x: 0.3, y: 0.1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -680,7 +682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8758608640662865270
 Transform:
   m_ObjectHideFlags: 0

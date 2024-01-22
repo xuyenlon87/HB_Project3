@@ -10,10 +10,6 @@ public class BulletMain : GameUnit
     public float dame;
     public float rangeSize;
     public Vector3 startPos;
-    public GameObject VFX;
-    private void Update()
-    {
-    }
 
     private void Start()
     {
@@ -34,23 +30,17 @@ public class BulletMain : GameUnit
     {
         this.rangeSize = rangeSize;
     }
-    public void OnDestroy()
-    {
-        Destroy(gameObject);
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Bot"))
-        {
-            Instantiate(VFX, other.transform.position, Quaternion.identity);
-            other.GetComponent<Character>().OnHit(dame);
-            OnDestroy();
-        }
-    }
 
     public virtual void Move()
     {
 
-    } 
+    }
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player") || other.CompareTag("Bot"))
+    //    {
+    //        other.GetComponent<Character>().OnHit(dame);
+    //        SimplePool.Despawn(LevelManager.Instance.bullet);
+    //    }
+    //}
 }

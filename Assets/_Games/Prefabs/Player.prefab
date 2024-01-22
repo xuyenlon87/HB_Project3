@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4641142464745453340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 1}
+  m_LocalPosition: {x: 0.3, y: 0.1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -266,17 +266,18 @@ MonoBehaviour:
   amountBullet: 0
   hp: 0
   radiusSize: 0
-  playerGun: {fileID: 4641142464745453341}
+  playerGun: {fileID: 8153076163645590014}
   target: {fileID: 0}
   canAttack: 0
   isDead: 0
   level: 0
   timeResetAttack: 0
   expPotionPrefab: {fileID: 6026782607143296688, guid: a583bbaeafcd58a4f81ccc50483724d7, type: 3}
-  bulletPrefab: {fileID: 7007606654688149958, guid: b1c55847b21933f40856b83cd0e270a4, type: 3}
   lookTarget: {x: 0, y: 0, z: 0}
+  charaterImg: {fileID: 7804706832099300687}
+  currentBullet: 0
+  bulletStart: {fileID: 0}
   fixedJoystick: {fileID: 0}
-  boomerang: {fileID: 0}
 --- !u!1 &5130228182237260901
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4057993672962835827
 Transform:
   m_ObjectHideFlags: 0
@@ -553,7 +554,7 @@ GameObject:
   - component: {fileID: 3211651359817604999}
   - component: {fileID: 5980405377979843911}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,7 +742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1644358298137905298
 Transform:
   m_ObjectHideFlags: 0
