@@ -28,6 +28,8 @@ public class Character : MonoBehaviour
     public BulletType currentBullet;
     public Transform bulletStart;
     public BulletMain bullet;
+    public Animator anim;
+    public string currentAnimName;
 
 
     public virtual void OnInit()
@@ -91,7 +93,6 @@ public class Character : MonoBehaviour
             RotateTarget();
             if (canAttack && amountBullet > 0)
             {
-                playerGun.SetActive(false);
                 if(currentBullet == BulletType.Bullet)
                 {
                       bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
@@ -117,7 +118,6 @@ public class Character : MonoBehaviour
     }
     public void ResetAttack()
     {
-        playerGun.SetActive(true);
         canAttack = true;
     }
     public void RotateTarget()
@@ -128,6 +128,15 @@ public class Character : MonoBehaviour
             directionToTarget.y = 0f;
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
+        }
+    }
+    protected void ChangeAnim(string animName)
+    {
+        if (currentAnimName != animName)
+        {
+            anim.SetBool(currentAnimName,false);
+            currentAnimName = animName;
+            anim.SetBool(currentAnimName, true);
         }
     }
 }
