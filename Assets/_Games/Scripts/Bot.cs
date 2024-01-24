@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Bot : Character
 {
     public NavMeshAgent navMesh;
-    private Vector3 targetPos;
+    public Vector3 targetPos;
     private IState<Bot> currentState;
     private NavMeshHit hit;
 
@@ -51,6 +51,10 @@ public class Bot : Character
         if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
         {
             return hit.position;
+        }
+        else if (Vector3.Distance(transform.position, Vector3.zero) >= 48f)
+        {
+            return Vector3.zero;
         }
         return transform.position;
     }

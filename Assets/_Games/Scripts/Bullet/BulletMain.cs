@@ -34,12 +34,12 @@ public class BulletMain : GameUnit
     {
 
     }
-    //public void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player") || other.CompareTag("Bot"))
-    //    {
-    //        other.GetComponent<Character>().OnHit(dame);
-    //        SimplePool.Despawn(LevelManager.Instance.bullet);
-    //    }
-    //}
+    public void OnTriggerEnter(Collider other)
+    {
+        //if (other.CompareTag("Player") || other.CompareTag("Bot"))
+        //{
+        //    other.GetComponent<Character>().OnHit(dame);
+        //    SimplePool.Despawn(LevelManager.Instance.bullet);
+        //}
+    }
 }
