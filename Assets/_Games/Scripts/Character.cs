@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
     public enum BulletType
     {
@@ -15,21 +15,19 @@ public class Character : MonoBehaviour
     public int amountBullet;
     public float hp;
     public float radiusSize;
-    public GameObject playerGun;
     public Transform target;
     public bool canAttack;
     public bool isDead;
     public int level;
     public float timeResetAttack;
     [SerializeField] GameObject expPotionPrefab;
-    public Vector3 lookTarget;
     public Transform charaterImg;
-    private MiniPool<Bullet> miniPoolBullet;
     public BulletType currentBullet;
     public Transform bulletStart;
     public BulletMain bullet;
     public Animator anim;
     public string currentAnimName;
+    public Transform hand;
 
 
     public virtual void OnInit()
@@ -43,6 +41,8 @@ public class Character : MonoBehaviour
         speed = 5f;
         timeResetAttack = 2f;
         currentBullet = BulletType.Bullet;
+        SetBullet();
+        ChangeAnim("IsIdle");
     }
 
     public void OnHit(float damage)
@@ -54,7 +54,8 @@ public class Character : MonoBehaviour
             {
                 hp = 0;
                 isDead = true;
-                OnDeath();
+                ChangeAnim("IsDead");
+                Invoke(nameof(OnDeath), 1.5f);
             }
         }
     }
@@ -86,35 +87,41 @@ public class Character : MonoBehaviour
         bot.SetSpeed(speed);
 
     }
+
+    public void SetBullet()
+    {
+        if (currentBullet == BulletType.Bullet)
+        {
+            bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, hand.transform.position, Quaternion.identity, hand);
+        }
+        else if (currentBullet == BulletType.Axe)
+        {
+            bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, hand.transform.position, Quaternion.identity, hand);
+
+        }
+        else if (currentBullet == BulletType.Boomerang)
+        {
+            bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, hand.transform.position, Quaternion.identity, hand);
+
+        }
+    }
     public virtual void OnShoot()
     {
         if(target != null)
         {
             RotateTarget();
             if (canAttack && amountBullet > 0)
-            {
-                if(currentBullet == BulletType.Bullet)
-                {
-                      bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
-                }
-                else if(currentBullet == BulletType.Axe)
-                {
-                     bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
-
-                }
-                else if(currentBullet == BulletType.Boomerang)
-                {
-                     bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(bulletStart.position.x, 0f, bulletStart.position.z), Quaternion.identity, LevelManager.Instance.poolBullet);
-
-                }
-                //bullet.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            {     
+                ChangeAnim("IsAttack");
                 bullet.SetTarget(target.position);
                 bullet.SetRangeSize(radiusSize);
+                bullet.Move();
                 canAttack = false;
                 amountBullet = 0;
                 Invoke(nameof(ResetAttack), timeResetAttack);
             }
-        }      
+        }
+        Invoke(nameof(SetBullet), 1f);
     }
     public void ResetAttack()
     {
@@ -130,13 +137,14 @@ public class Character : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
         }
     }
-    protected void ChangeAnim(string animName)
+    protected void ChangeAnim(string newAnimName)
     {
-        if (currentAnimName != animName)
+
+        if (currentAnimName != newAnimName)
         {
-            anim.SetBool(currentAnimName,false);
-            currentAnimName = animName;
-            anim.SetBool(currentAnimName, true);
+            anim.ResetTrigger(currentAnimName);
+            currentAnimName = newAnimName;
+            anim.SetTrigger(currentAnimName);
         }
     }
 }

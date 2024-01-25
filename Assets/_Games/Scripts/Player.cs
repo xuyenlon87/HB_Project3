@@ -43,12 +43,15 @@ public class Player : Character
             amountBullet = 1;
             ChangeAnim("IsRun");
         }
+        if (rb.velocity.sqrMagnitude <= 1f)
+        {
+            ChangeAnim("IsIdle");
+        }
     }
     
     public override void OnInit()
     {
         base.OnInit();
-        //currentBullet = BulletType.Boomerang;
     }
     private void OnTriggerEnter(Collider other)
     {

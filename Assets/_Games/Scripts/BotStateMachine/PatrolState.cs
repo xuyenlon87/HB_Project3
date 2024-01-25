@@ -13,10 +13,7 @@ public class PatrolState : IState<Bot>
 
     public void OnExecute(Bot bot)
     {
-        if(Vector3.Distance(bot.transform.position, Vector3.zero) >= 48f)
-        {
-            bot.targetPos = Vector3.zero;
-        }
+
     }
 
     public void OnExit(Bot bot)

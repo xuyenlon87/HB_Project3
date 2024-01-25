@@ -5,30 +5,26 @@ using UnityEngine;
 public class AttackState : IState<Bot>
 {
     private int state;
+    private float timeChangeTarget;
     public void OnEnter(Bot bot)
     {
-        if(bot.amountBullet >=1)
+        timeChangeTarget = 0;
+        state = Random.Range(0, 2);
+        switch (state)
         {
-            bot.navMesh.isStopped = true;
-            state = Random.Range(0, 3);
-            switch (state)
-            {
-                case 0:
-                    bot.StartCoroutine(bot.ShootAndMove());
-                    break;
-                case 1:
-                    bot.StartCoroutine(bot.MoveAroundAndShoot());
-                    break;
-                case 2:
-                    bot.StartCoroutine(bot.AvoidAndShoot());
-                    break;
-            }
+            case 0:
+                bot.StartCoroutine(bot.MoveAroundAndShoot());
+                break;
+            case 1:
+                bot.StartCoroutine(bot.AvoidAndShoot());
+                break;
         }
     }
 
     public void OnExecute(Bot bot)
     {
-        if(bot.target == null)
+        timeChangeTarget += Time.deltaTime;
+        if (bot.target == null || timeChangeTarget >= Random.Range(5,15))
         {
             bot.ChangeState(new PatrolState());
         }

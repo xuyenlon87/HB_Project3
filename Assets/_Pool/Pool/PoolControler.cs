@@ -144,7 +144,7 @@ public enum ParticleType
 public enum PoolType
 {
     None,
-
+    Character_1,
     Bullet_1,
     Bullet_2,
     Bullet_3,

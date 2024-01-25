@@ -10,6 +10,7 @@ public class Bot : Character
     public Vector3 targetPos;
     private IState<Bot> currentState;
     private NavMeshHit hit;
+    private float timeChangeTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,12 @@ public class Bot : Character
         if (navMesh.velocity.sqrMagnitude > 1f)
         {
             transform.rotation = Quaternion.LookRotation(navMesh.velocity);
+            ChangeAnim("IsRun");
             amountBullet = 1;
+        }
+        if (navMesh.velocity.sqrMagnitude <= 0.1f)
+        {
+            ChangeAnim("IsIdle");
         }
 
         if (currentState != null && !isDead)
@@ -47,7 +53,7 @@ public class Bot : Character
     }
     private Vector3 GetRandomPointOnNavMesh()
     {
-        Vector3 randomPoint = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
+        Vector3 randomPoint = new Vector3(transform.position.x + Random.Range(-10, 10), 0, transform.position.z + Random.Range(-10, 10));
         if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
         {
             return hit.position;
@@ -62,36 +68,27 @@ public class Bot : Character
     {
         while (true)
         {
+
             targetPos = GetRandomPointOnNavMesh();
             navMesh.SetDestination(targetPos);
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
 
-    public IEnumerator ShootAndMove()
-    {
-        if (target != null)
-        {
-            while (target != null)
-            {
-                OnShoot();
-                transform.position = Vector3.MoveTowards(transform.position, GetRandomPointOnNavMesh(), navMesh.speed * Time.deltaTime);
-                yield return new WaitForSeconds(timeResetAttack-0.1f);
-            }
-        }
-    }
     public IEnumerator MoveAroundAndShoot()
     {
         if (target != null)
         {
+            navMesh.isStopped = true;
             OnShoot();
             while (target != null)
             {
+                navMesh.isStopped = false;
                 int random = Random.Range(-3,3);
-                Vector3 targetPosMoveAround = new Vector3(target.position.x + random, target.position.y, target.position.z + random);
-                transform.position = Vector3.MoveTowards(transform.position,targetPosMoveAround, navMesh.speed * Time.deltaTime);
-                yield return new WaitForSeconds(timeResetAttack - 0.1f);
+                Vector3 targetPosMoveAround = new Vector3(target.position.x + random, 0f, target.position.z + random);
+                navMesh.SetDestination(targetPosMoveAround);
                 OnShoot();
+                yield return new WaitForSeconds(timeResetAttack - 0.1f);
             }
         }     
     }
@@ -99,14 +96,16 @@ public class Bot : Character
     {
         if (target != null)
         {
+            navMesh.isStopped = true;
             OnShoot();
             while (target != null)
             {
+                navMesh.isStopped = false;
                 int random = Random.Range(-3, 3);
-                Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, transform.position.y, transform.position.z + random);
-                transform.position = Vector3.MoveTowards(transform.position, targetAvoidAndShoot, navMesh.speed * Time.deltaTime);
-                yield return new WaitForSeconds(timeResetAttack - 0.1f);
+                Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, 0f, transform.position.z + random);
+                navMesh.SetDestination(targetAvoidAndShoot);
                 OnShoot();
+                yield return new WaitForSeconds(timeResetAttack - 0.1f);
             }
         }
     }
@@ -130,13 +129,4 @@ public class Bot : Character
             ChangeState(new AttackState());
         }
     }
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Bot") || other.CompareTag("Player"))
-        {
-            target = null;
-            ChangeState(new PatrolState());
-        }
-    }
-
 }

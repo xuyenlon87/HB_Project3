@@ -12,7 +12,6 @@ public class BulletAxe : BulletMain
     }
     private void Update()
     {
-        Move();
     }
     public override void Move()
     {
