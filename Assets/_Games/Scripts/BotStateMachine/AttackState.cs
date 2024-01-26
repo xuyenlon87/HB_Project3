@@ -8,6 +8,7 @@ public class AttackState : IState<Bot>
     private float timeChangeTarget;
     public void OnEnter(Bot bot)
     {
+        Debug.Log("attack");
         timeChangeTarget = 0;
         state = Random.Range(0, 2);
         switch (state)
@@ -24,7 +25,7 @@ public class AttackState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         timeChangeTarget += Time.deltaTime;
-        if (bot.target == null || timeChangeTarget >= Random.Range(5,15))
+        if (timeChangeTarget >= Random.Range(5,15) || bot.target == null)
         {
             bot.ChangeState(new PatrolState());
         }

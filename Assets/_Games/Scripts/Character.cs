@@ -26,9 +26,8 @@ public class Character : GameUnit
     public Transform bulletStart;
     public BulletMain bullet;
     public Animator anim;
-    public string currentAnimName;
+    public string currentAnimName = null;
     public Transform hand;
-
 
     public virtual void OnInit()
     {
@@ -40,8 +39,6 @@ public class Character : GameUnit
         level = 1;
         speed = 5f;
         timeResetAttack = 2f;
-        currentBullet = BulletType.Bullet;
-        SetBullet();
         ChangeAnim("IsIdle");
     }
 
@@ -92,18 +89,19 @@ public class Character : GameUnit
     {
         if (currentBullet == BulletType.Bullet)
         {
-            bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, hand.transform.position, Quaternion.identity, hand);
+            bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, Vector3.zero, Quaternion.identity, hand);
         }
         else if (currentBullet == BulletType.Axe)
         {
-            bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, hand.transform.position, Quaternion.identity, hand);
+            bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, Vector3.zero, Quaternion.identity, hand);
 
         }
         else if (currentBullet == BulletType.Boomerang)
         {
-            bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, hand.transform.position, Quaternion.identity, hand);
+            bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, Vector3.zero, Quaternion.identity, hand);
 
         }
+        Debug.Log("here");
     }
     public virtual void OnShoot()
     {

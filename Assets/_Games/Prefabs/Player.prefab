@@ -180,7 +180,7 @@ MonoBehaviour:
   bullet: {fileID: 0}
   anim: {fileID: 8419811018450567522}
   currentAnimName: 
-  hand: {fileID: 893607134097369979}
+  hand: {fileID: 6709403341108095943}
   fixedJoystick: {fileID: 0}
 --- !u!1 &7876189313948103804
 GameObject:
@@ -336,14 +336,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
---- !u!4 &893607134097369979 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3220319501169496967, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
-  m_PrefabInstance: {fileID: 6857181842075256578}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1896910735242308632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 6857181842075256578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6709403341108095943 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -9064325173771588411, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 6857181842075256578}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &8419811018450567522 stripped

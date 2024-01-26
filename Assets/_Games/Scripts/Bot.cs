@@ -10,12 +10,12 @@ public class Bot : Character
     public Vector3 targetPos;
     private IState<Bot> currentState;
     private NavMeshHit hit;
-    private float timeChangeTarget;
-
     // Start is called before the first frame update
     void Start()
     {
         OnInit();
+        currentBullet = BulletType.Bullet;
+        SetBullet();
     }
 
     // Update is called once per frame
@@ -68,13 +68,22 @@ public class Bot : Character
     {
         while (true)
         {
-
             targetPos = GetRandomPointOnNavMesh();
             navMesh.SetDestination(targetPos);
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
 
+    private void Stop()
+    {
+        navMesh.isStopped = true;
+    }
+    public override void OnShoot()
+    {
+        Stop();
+        base.OnShoot();
+
+    }
     public IEnumerator MoveAroundAndShoot()
     {
         if (target != null)
@@ -126,7 +135,6 @@ public class Bot : Character
         if (other.CompareTag("Bot") || other.CompareTag("Player"))
         {
             target = other.transform;
-            ChangeState(new AttackState());
         }
     }
 }

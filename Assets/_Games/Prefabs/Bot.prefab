@@ -150,7 +150,7 @@ MonoBehaviour:
   bullet: {fileID: 0}
   anim: {fileID: 5017706820683979735}
   currentAnimName: 
-  hand: {fileID: 4403938460317397454}
+  hand: {fileID: 7811425985631875442}
   navMesh: {fileID: 2749960574865717597}
   targetPos: {x: 0, y: 0, z: 0}
 --- !u!195 &2749960574865717597
@@ -369,13 +369,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 7949643666058993079}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4403938460317397454 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3220319501169496967, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
-  m_PrefabInstance: {fileID: 7949643666058993079}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &5017706820683979735 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 7949643666058993079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7811425985631875442 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -9064325173771588411, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 7949643666058993079}
   m_PrefabAsset: {fileID: 0}
