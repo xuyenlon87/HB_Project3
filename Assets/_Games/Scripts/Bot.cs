@@ -15,7 +15,7 @@ public class Bot : Character
     {
         OnInit();
         currentBullet = BulletType.Bullet;
-        SetBullet();
+        GetBullet();
     }
 
     // Update is called once per frame

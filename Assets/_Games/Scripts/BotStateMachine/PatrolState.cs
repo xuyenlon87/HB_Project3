@@ -10,8 +10,6 @@ public class PatrolState : IState<Bot>
         bot.target = null;
         bot.navMesh.isStopped = false;
         bot.StartCoroutine(bot.Move());
-        bot.StopCoroutine(bot.MoveAroundAndShoot());
-        bot.StopCoroutine(bot.AvoidAndShoot());
     }
 
     public void OnExecute(Bot bot)
@@ -24,6 +22,6 @@ public class PatrolState : IState<Bot>
 
     public void OnExit(Bot bot)
     {
-
+        bot.StopCoroutine(bot.Move());
     }
 }

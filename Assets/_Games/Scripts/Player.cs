@@ -13,9 +13,11 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
+        currentBullet = BulletType.Bullet;
         rb = gameObject.GetComponent<Rigidbody>();
         OnInit();
         anim.GetComponent<Animator>();
+        GetBullet();
     }
 
     // Update is called once per frame

@@ -24,10 +24,11 @@ public class Character : GameUnit
     public Transform charaterImg;
     public BulletType currentBullet;
     public Transform bulletStart;
-    public BulletMain bullet;
     public Animator anim;
     public string currentAnimName = null;
     public Transform hand;
+    public PoolControler pool;
+    public BulletMain bullet;
 
     public virtual void OnInit()
     {
@@ -85,23 +86,25 @@ public class Character : GameUnit
 
     }
 
-    public void SetBullet()
+    public virtual void GetBullet()
     {
-        if (currentBullet == BulletType.Bullet)
+        if(bullet == null)
         {
-            bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, Vector3.zero, Quaternion.identity, hand);
-        }
-        else if (currentBullet == BulletType.Axe)
-        {
-            bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, Vector3.zero, Quaternion.identity, hand);
+            if (currentBullet == BulletType.Bullet)
+            {
+                 bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, hand);
+            }
+            else if (currentBullet == BulletType.Axe)
+            {
+                 bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, Vector3.zero, Quaternion.identity);
 
-        }
-        else if (currentBullet == BulletType.Boomerang)
-        {
-            bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, Vector3.zero, Quaternion.identity, hand);
+            }
+            else if (currentBullet == BulletType.Boomerang)
+            {
+                bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, Vector3.zero, Quaternion.identity);
 
-        }
-        Debug.Log("here");
+            }
+       }
     }
     public virtual void OnShoot()
     {
@@ -111,18 +114,18 @@ public class Character : GameUnit
             if (canAttack && amountBullet > 0)
             {     
                 ChangeAnim("IsAttack");
-                bullet.SetTarget(target.position);
-                bullet.SetRangeSize(radiusSize);
-                bullet.Move();
+                //bullet.SetTarget(target.position);
+                //bullet.SetRangeSize(radiusSize);
+                //bullet.Move();
                 canAttack = false;
                 amountBullet = 0;
                 Invoke(nameof(ResetAttack), timeResetAttack);
             }
         }
-        Invoke(nameof(SetBullet), 1f);
     }
     public void ResetAttack()
     {
+        GetBullet();
         canAttack = true;
     }
     public void RotateTarget()

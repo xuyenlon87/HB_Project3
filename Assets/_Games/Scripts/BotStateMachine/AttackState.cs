@@ -33,6 +33,7 @@ public class AttackState : IState<Bot>
 
     public void OnExit(Bot bot)
     {
-        bot.navMesh.isStopped = false;
+        bot.StopCoroutine(bot.MoveAroundAndShoot());
+        bot.StopCoroutine(bot.AvoidAndShoot());
     }
 }
