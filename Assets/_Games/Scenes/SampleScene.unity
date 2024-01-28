@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1058,15 +1058,15 @@ MonoBehaviour:
   Pool:
   - root: {fileID: 1872360368}
     prefab: {fileID: 6062612028874553167, guid: 1c22cec4de822f14588d0296eaa1a6a4, type: 3}
-    amount: 50
+    amount: 10
     collect: 1
   - root: {fileID: 1872360368}
     prefab: {fileID: 3195330665697696438, guid: bda37398e7efbb54d91c8aa10ab011ba, type: 3}
-    amount: 50
+    amount: 10
     collect: 1
   - root: {fileID: 1872360368}
     prefab: {fileID: 5234323152792276962, guid: a19938e50d37fa949afac3deb39aca40, type: 3}
-    amount: 50
+    amount: 10
     collect: 1
   - root: {fileID: 63245253}
     prefab: {fileID: 2749960574865717667, guid: 13e546f8418d30743b1e30b0fe056f30, type: 3}
