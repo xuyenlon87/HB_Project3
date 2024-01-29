@@ -13,7 +13,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
-        currentBullet = BulletType.Boomerang;
+        currentBullet = BulletType.Bullet;
         rb = gameObject.GetComponent<Rigidbody>();
         OnInit();
         anim.GetComponent<Animator>();

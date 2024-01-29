@@ -106,24 +106,21 @@ public class Character : GameUnit
             bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
             bullet.transform.localScale = new Vector3(8f, 8f, 8f);
         }
+        Debug.Log("here");
     }
     public virtual void OnShoot()
     {
-
-        if(target != null)
+        RotateTarget();
+        if (target != null && canAttack && amountBullet > 0 && !isDead)
         {
-            RotateTarget();
-            if (canAttack && amountBullet > 0)
-            {     
-                ChangeAnim("IsAttack");
-                Debug.Log("attack");
-                bullet.transform.SetParent(null);
-                bullet.SetTarget(target.position);
-                bullet.SetRangeSize(radiusSize);
-                canAttack = false;
-                amountBullet = 0;
-                Invoke(nameof(ResetAttack), timeResetAttack);
-            }
+            ChangeAnim("IsAttack");
+            Debug.Log("attack");
+            bullet.transform.SetParent(LevelManager.Instance.transform);
+            bullet.SetTarget(target.position);
+            bullet.SetRangeSize(radiusSize);
+            canAttack = false;
+            amountBullet = 0;
+            Invoke(nameof(ResetAttack), timeResetAttack);
         }
     }
     public void ResetAttack()
