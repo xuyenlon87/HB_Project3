@@ -6,7 +6,6 @@ public class PatrolState : IState<Bot>
 {
     public void OnEnter(Bot bot)
     {
-        Debug.Log("patrol");
         bot.target = null;
         bot.navMesh.isStopped = false;
         bot.StartCoroutine(bot.Move());

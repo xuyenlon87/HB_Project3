@@ -8,7 +8,6 @@ public class AttackState : IState<Bot>
     private float timeChangeTarget;
     public void OnEnter(Bot bot)
     {
-        Debug.Log("attack");
         timeChangeTarget = 0;
         state = Random.Range(0, 2);
         switch (state)

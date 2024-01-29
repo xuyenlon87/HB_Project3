@@ -45,7 +45,7 @@ public class Player : Character
             amountBullet = 1;
             ChangeAnim("IsRun");
         }
-        if (rb.velocity.sqrMagnitude <= 1f)
+        else if (rb.velocity.sqrMagnitude <= 1f)
         {
             ChangeAnim("IsIdle");
         }

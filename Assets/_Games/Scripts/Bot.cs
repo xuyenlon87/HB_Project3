@@ -27,7 +27,7 @@ public class Bot : Character
             ChangeAnim("IsRun");
             amountBullet = 1;
         }
-        if (navMesh.velocity.sqrMagnitude <= 0.1f)
+        if (navMesh.velocity.sqrMagnitude <= 1f)
         {
             ChangeAnim("IsIdle");
         }
@@ -78,25 +78,29 @@ public class Bot : Character
     {
         navMesh.isStopped = true;
     }
+    private void StartMove()
+    {
+        navMesh.isStopped = false;
+    }
     public override void OnShoot()
     {
         Stop();
         base.OnShoot();
+        Invoke(nameof(StartMove), 1f);
 
     }
     public IEnumerator MoveAroundAndShoot()
     {
         if (target != null)
         {
-            navMesh.isStopped = true;
-            OnShoot();
+            navMesh.velocity = Vector3.zero;
             while (target != null)
             {
-                navMesh.isStopped = false;
+                OnShoot();
+                yield return new WaitForSeconds(0.2f);
                 int random = Random.Range(-3,3);
                 Vector3 targetPosMoveAround = new Vector3(target.position.x + random, 0f, target.position.z + random);
                 navMesh.SetDestination(targetPosMoveAround);
-                OnShoot();
                 yield return new WaitForSeconds(timeResetAttack - 0.1f);
             }
         }     
@@ -105,15 +109,15 @@ public class Bot : Character
     {
         if (target != null)
         {
-            navMesh.isStopped = true;
-            OnShoot();
+            navMesh.velocity = Vector3.zero;
+
             while (target != null)
             {
-                navMesh.isStopped = false;
+                OnShoot();
+                yield return new WaitForSeconds(0.2f);
                 int random = Random.Range(-3, 3);
                 Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, 0f, transform.position.z + random);
                 navMesh.SetDestination(targetAvoidAndShoot);
-                OnShoot();
                 yield return new WaitForSeconds(timeResetAttack - 0.1f);
             }
         }

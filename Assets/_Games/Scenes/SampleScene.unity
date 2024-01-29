@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2749960574865717598, guid: 13e546f8418d30743b1e30b0fe056f30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.4
+      value: -2.74
       objectReference: {fileID: 0}
     - target: {fileID: 2749960574865717598, guid: 13e546f8418d30743b1e30b0fe056f30, type: 3}
       propertyPath: m_LocalPosition.y
@@ -631,6 +631,10 @@ PrefabInstance:
       propertyPath: fixedJoystick
       value: 
       objectReference: {fileID: 1448711506}
+    - target: {fileID: 4641142464769395765, guid: 4b50fd7da5bc7bb40ad6ae10442734db, type: 3}
+      propertyPath: bomerangPrefab
+      value: 
+      objectReference: {fileID: 4494732443660180313, guid: a19938e50d37fa949afac3deb39aca40, type: 3}
     - target: {fileID: 6372449106935255528, guid: 4b50fd7da5bc7bb40ad6ae10442734db, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

@@ -29,6 +29,7 @@ public class Character : GameUnit
     public Transform hand;
     public PoolControler pool;
     public BulletMain bullet;
+    public GameObject bomerangPrefab;
     public virtual void OnInit()
     {
         radiusSize = 5;
@@ -87,40 +88,38 @@ public class Character : GameUnit
 
     public virtual void GetBullet()
     {
-        if(bullet == null)
+        if (currentBullet == BulletType.Bullet)
         {
-            if (currentBullet == BulletType.Bullet)
-            {
-                bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, new Vector3(-0.2f, 0.1f, 0.1f),Quaternion.identity, hand);
-                bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-                bullet.transform.localScale = new Vector3(30f, 30f, 30f);
-            }
-            else if (currentBullet == BulletType.Axe)
-            {
-                bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
-                bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-                bullet.transform.localScale = new Vector3(30f, 30f, 30f);
-            }
-            else if (currentBullet == BulletType.Boomerang)
-            {
-                bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(-0.3f, 0.1f, 0.1f), Quaternion.identity, hand);
-                bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-                bullet.transform.localScale = new Vector3(8f, 8f, 8f);
-
-            }
-       }
+            bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
+            bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+            bullet.transform.localScale = new Vector3(30f, 30f, 30f);
+        }
+        else if (currentBullet == BulletType.Axe)
+        {
+            bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
+            bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+            bullet.transform.localScale = new Vector3(30f, 30f, 30f);
+        }
+        else if (currentBullet == BulletType.Boomerang)
+        {
+            bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(-0.3f, 0.1f, 0.1f), Quaternion.identity, hand);
+            bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+            bullet.transform.localScale = new Vector3(8f, 8f, 8f);
+        }
     }
     public virtual void OnShoot()
     {
+
         if(target != null)
         {
             RotateTarget();
             if (canAttack && amountBullet > 0)
             {     
                 ChangeAnim("IsAttack");
-                //bullet.SetTarget(target.position);
-                //bullet.SetRangeSize(radiusSize);
-                //bullet.Move();
+                Debug.Log("attack");
+                bullet.transform.SetParent(null);
+                bullet.SetTarget(target.position);
+                bullet.SetRangeSize(radiusSize);
                 canAttack = false;
                 amountBullet = 0;
                 Invoke(nameof(ResetAttack), timeResetAttack);

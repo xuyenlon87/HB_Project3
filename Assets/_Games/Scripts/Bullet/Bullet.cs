@@ -10,6 +10,7 @@ public class Bullet : BulletMain
     }
     private void Update()
     {
+        Move();
     }
     public override void Move()
     {
