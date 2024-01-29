@@ -67,7 +67,6 @@ public static class SimplePool
 
             return obj;
         }
-
         //spawn gameunit
         public GameUnit Spawn()
         {

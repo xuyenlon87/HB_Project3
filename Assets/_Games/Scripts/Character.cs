@@ -70,7 +70,7 @@ public class Character : GameUnit
         int random = Random.Range(0, 100);
         if(random < 30)
         {
-            GameObject expPotion =  Instantiate(expPotionPrefab, new Vector3(transform.position.x, 0.25f, transform.position.z), Quaternion.identity, LevelManager.Instance.transform);
+            GameObject expPotion =  Instantiate(expPotionPrefab, new Vector3(transform.position.x, 0.25f, transform.position.z), Quaternion.identity, LevelManager.Ins.transform);
             expPotion.GetComponent<Exp>().level = Random.Range(1, level + 1);
             Debug.Log(random);
         }
@@ -115,7 +115,7 @@ public class Character : GameUnit
         {
             ChangeAnim("IsAttack");
             Debug.Log("attack");
-            bullet.transform.SetParent(LevelManager.Instance.transform);
+            bullet.transform.SetParent(LevelManager.Ins.transform);
             bullet.SetTarget(target.position);
             bullet.SetRangeSize(radiusSize);
             canAttack = false;
