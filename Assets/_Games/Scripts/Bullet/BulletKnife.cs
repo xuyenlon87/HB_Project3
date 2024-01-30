@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : BulletMain
+
+public class BulletKnife : BulletMain
 {
+    [SerializeField] private Renderer bulletKnifeRen;
+    [SerializeField] private Material[] bulletKnifeMat;
+
     private void Start()
     {
         OnInit();
@@ -22,6 +26,16 @@ public class Bullet : BulletMain
                 Destroy(gameObject);
             }
         }
-
+    }
+    public void ChangeMaterial(int materialIndex)
+    {
+        if (materialIndex >= 0 && materialIndex < bulletKnifeMat.Length)
+        {
+            bulletKnifeRen.material = bulletKnifeMat[materialIndex];
+        }
+        else
+        {
+            bulletKnifeRen.material = bulletKnifeMat[0];
+        }
     }
 }

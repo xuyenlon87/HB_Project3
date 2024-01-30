@@ -6,6 +6,7 @@ public class Player : Character
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     private Rigidbody rb;
+
     public void FixedUpdate()
     {
         Move();
@@ -41,7 +42,7 @@ public class Player : Character
         rb.velocity = direction * speed;
         if (rb.velocity.sqrMagnitude > 1f)
         {
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
+            charaterImg.forward = direction;
             amountBullet = 1;
             ChangeAnim("IsRun");
         }

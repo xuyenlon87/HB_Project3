@@ -90,7 +90,7 @@ public class Character : GameUnit
     {
         if (currentBullet == BulletType.Bullet)
         {
-            bullet = SimplePool.Spawn<Bullet>(PoolType.Bullet_1, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
+            bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
             bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
             bullet.transform.localScale = new Vector3(30f, 30f, 30f);
         }

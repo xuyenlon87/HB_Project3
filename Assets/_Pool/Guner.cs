@@ -6,7 +6,7 @@ public class Guner : MonoBehaviour
 {
     public Transform[] bulletPoints;
 
-    public Bullet bulletPrefab;
+    //public Bullet bulletPrefab;
 
     public float rateFire = 1f;
 
