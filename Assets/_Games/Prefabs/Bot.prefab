@@ -147,10 +147,12 @@ MonoBehaviour:
   charaterImg: {fileID: 0}
   currentBullet: 0
   bulletStart: {fileID: 2749960575453278049}
-  bullet: {fileID: 0}
   anim: {fileID: 5017706820683979735}
   currentAnimName: 
   hand: {fileID: 7811425985631875442}
+  pool: {fileID: 0}
+  bullet: {fileID: 0}
+  bomerangPrefab: {fileID: 0}
   navMesh: {fileID: 2749960574865717597}
   targetPos: {x: 0, y: 0, z: 0}
 --- !u!195 &2749960574865717597

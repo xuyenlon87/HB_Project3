@@ -53,6 +53,7 @@ public class Character : GameUnit
                 hp = 0;
                 isDead = true;
                 ChangeAnim("IsDead");
+                LevelManager.Ins.sumPlayer -= 1;
                 Invoke(nameof(OnDeath), 1.5f);
             }
         }

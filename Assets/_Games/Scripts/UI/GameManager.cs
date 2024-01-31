@@ -96,7 +96,7 @@ public class GameManager : Singleton<GameManager>
 
     private void PlayGame()
     {
-        throw new NotImplementedException();
+        LevelManager.Ins.SpawnBot(49);
     }
 
     private void StartGame()

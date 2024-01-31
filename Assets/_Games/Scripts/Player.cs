@@ -14,6 +14,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
+        fixedJoystick = UIManager.Ins.GetUI<GamePlay>().GetComponentInChildren<FixedJoystick>();
         currentBullet = BulletType.Bullet;
         rb = gameObject.GetComponent<Rigidbody>();
         OnInit();
