@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class ShopWeapon : UICanvas
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<GameObject> listWeapon;
+    [SerializeField] private Transform listRotate;
+    private int currentIndexWeapon = 0;
+    private void Start()
     {
-        
+        listWeapon[currentIndexWeapon].SetActive(true);
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        listRotate.Rotate(Vector3.up, 45f * Time.deltaTime);
+    }
+    public void ButtonNext()
+    {
+        if (currentIndexWeapon < listWeapon.Count - 2)
+        {
+            listWeapon[currentIndexWeapon].SetActive(false);
+            currentIndexWeapon += 1;
+            listWeapon[currentIndexWeapon].SetActive(true);
+        }
+        else if (currentIndexWeapon == listWeapon.Count - 1)
+        {
+            currentIndexWeapon += 0;
+        }
+    }
+
+    public void ButtonBack()
+    {
+        if (currentIndexWeapon >= 1)
+        {
+            listWeapon[currentIndexWeapon].SetActive(false);
+            currentIndexWeapon -= 1;
+            listWeapon[currentIndexWeapon].SetActive(true);
+        }
+        else if (currentIndexWeapon == listWeapon.Count - 1)
+        {
+            currentIndexWeapon -= 0;
+        }
+
     }
 }

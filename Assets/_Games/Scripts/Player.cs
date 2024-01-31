@@ -6,6 +6,7 @@ public class Player : Character
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     private Rigidbody rb;
+    public Transform weaponPlayer;
 
     public void FixedUpdate()
     {
@@ -41,6 +42,10 @@ public class Player : Character
     {
         Vector3 direction = Vector3.forward * fixedJoystick.Vertical + Vector3.right * fixedJoystick.Horizontal;
         rb.velocity = direction * speed;
+        if(GameManager.Ins.currentState == GameState.Start)
+        {
+            charaterImg.transform.LookAt(Camera.main.transform);
+        }
         if (rb.velocity.sqrMagnitude > 1f)
         {
             charaterImg.forward = direction;
@@ -51,6 +56,7 @@ public class Player : Character
         {
             ChangeAnim("IsIdle");
         }
+
     }
     
     public override void OnInit()
