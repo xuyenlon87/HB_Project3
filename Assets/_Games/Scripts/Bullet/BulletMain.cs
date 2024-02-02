@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum BulletType
+{
+    Bullet,
+    Axe,
+    Boomerang,
+}
 public class BulletMain : GameUnit
 {
 

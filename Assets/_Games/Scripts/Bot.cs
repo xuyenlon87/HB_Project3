@@ -15,7 +15,7 @@ public class Bot : Character
     {
         OnInit();
         currentBullet = BulletType.Bullet;
-        GetBullet();
+        GetWeapon();
     }
 
     // Update is called once per frame
@@ -82,10 +82,10 @@ public class Bot : Character
     {
         navMesh.isStopped = false;
     }
-    public override void OnShoot()
+    public /*override*/ void OnShoot()
     {
         Stop();
-        base.OnShoot();
+        //base.OnShoot();
         Invoke(nameof(StartMove), 1f);
 
     }

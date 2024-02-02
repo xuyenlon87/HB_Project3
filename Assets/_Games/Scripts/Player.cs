@@ -20,7 +20,7 @@ public class Player : Character
         rb = gameObject.GetComponent<Rigidbody>();
         OnInit();
         anim.GetComponent<Animator>();
-        GetBullet();
+        GetWeapon();
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class Player : Character
             {
                 if (target != null)
                 {
-                    OnShoot();
+                    //OnShoot();
                 }
             }
         }

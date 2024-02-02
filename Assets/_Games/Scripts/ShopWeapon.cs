@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopWeapon : UICanvas
 {
     [SerializeField] private List<GameObject> listWeapon;
     [SerializeField] private Transform listRotate;
+    [SerializeField] private List<int> listPrice;
+    [SerializeField] private Text textPrice;
     private int currentIndexWeapon = 0;
+    private int currentIndexPrice = 0;
     private void Start()
     {
         listWeapon[currentIndexWeapon].SetActive(true);
@@ -27,6 +31,7 @@ public class ShopWeapon : UICanvas
         {
             currentIndexWeapon += 0;
         }
+        textPrice.text = listPrice[currentIndexWeapon].ToString();
     }
 
     public void ButtonBack()
@@ -41,6 +46,13 @@ public class ShopWeapon : UICanvas
         {
             currentIndexWeapon -= 0;
         }
+        textPrice.text = listPrice[currentIndexWeapon].ToString();
 
+    }
+
+    public void ButtonMainMenu()
+    {
+        UIManager.Ins.OpenUI<MainMenu>();
+        Close(0);
     }
 }
