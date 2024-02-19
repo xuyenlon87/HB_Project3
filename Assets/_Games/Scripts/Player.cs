@@ -16,7 +16,7 @@ public class Player : Character
     void Start()
     {
         fixedJoystick = UIManager.Ins.GetUI<GamePlay>().GetComponentInChildren<FixedJoystick>();
-        currentBullet = BulletType.Bullet;
+        currentWeapon = WeaponType.KnifeWeapon;
         rb = gameObject.GetComponent<Rigidbody>();
         OnInit();
         anim.GetComponent<Animator>();
@@ -32,7 +32,7 @@ public class Player : Character
             {
                 if (target != null)
                 {
-                    //OnShoot();
+                    OnShoot();
                 }
             }
         }

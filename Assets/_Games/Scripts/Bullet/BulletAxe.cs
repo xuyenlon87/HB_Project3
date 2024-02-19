@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletAxe : BulletMain
 {
-    private float rotationSpeed = 60f;
+    private float rotationSpeed = 360f;
 
     private void Start()
     {

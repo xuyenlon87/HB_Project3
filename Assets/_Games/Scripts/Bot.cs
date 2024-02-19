@@ -14,7 +14,7 @@ public class Bot : Character
     void Start()
     {
         OnInit();
-        currentBullet = BulletType.Bullet;
+        currentWeapon = (WeaponType)Random.Range(0, 3);
         GetWeapon();
     }
 
@@ -23,7 +23,7 @@ public class Bot : Character
     {
         if (navMesh.velocity.sqrMagnitude > 1f)
         {
-            transform.rotation = Quaternion.LookRotation(navMesh.velocity);
+            charaterImg.transform.rotation = Quaternion.LookRotation(navMesh.velocity);
             ChangeAnim("IsRun");
             amountBullet = 1;
         }
@@ -74,20 +74,19 @@ public class Bot : Character
         }
     }
 
-    private void Stop()
+    public void Stop()
     {
         navMesh.isStopped = true;
     }
-    private void StartMove()
+    public void StartMove()
     {
         navMesh.isStopped = false;
     }
-    public /*override*/ void OnShoot()
+    public override void OnShoot()
     {
         Stop();
-        //base.OnShoot();
+        base.OnShoot();
         Invoke(nameof(StartMove), 1f);
-
     }
     public IEnumerator MoveAroundAndShoot()
     {
@@ -141,4 +140,11 @@ public class Bot : Character
             target = other.transform;
         }
     }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Bot") || other.CompareTag("Player"))
+    //    {
+    //        target = null;
+    //    }
+    //}
 }

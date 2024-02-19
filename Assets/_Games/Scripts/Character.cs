@@ -16,7 +16,6 @@ public class Character : GameUnit
     public float timeResetAttack;
     [SerializeField] GameObject expPotionPrefab;
     public Transform charaterImg;
-    public BulletType currentBullet;
     public Transform bulletStart;
     public Animator anim;
     public string currentAnimName = null;
@@ -24,6 +23,12 @@ public class Character : GameUnit
     public PoolControler pool;
     public BulletMain bullet;
     public WeaponType currentWeapon;
+    public GameObject knifePrefab;
+    public GameObject axePrefab;
+    public GameObject BoomerangPrefab;
+    public GameObject weapon;
+
+
     public virtual void OnInit()
     {
         radiusSize = 5;
@@ -52,11 +57,11 @@ public class Character : GameUnit
             }
         }
     }
-    public void ChangeBullet(BulletType newBullet)
+    public void ChangeWeapon(WeaponType newWeapon)
     {
-        if(currentBullet != newBullet)
+        if(currentWeapon != newWeapon)
         {
-            currentBullet = newBullet;
+            currentWeapon = newWeapon;
         }
     }
     public void OnDeath()
@@ -81,78 +86,65 @@ public class Character : GameUnit
 
     }
 
-    //public virtual void GetBullet()
-    //{
-    //    if (currentBullet == BulletType.Bullet)
-    //    {
-    //        bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
-    //        bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-    //        bullet.transform.localScale = new Vector3(30f, 30f, 30f);
-    //    }
-    //    else if (currentBullet == BulletType.Axe)
-    //    {
-    //        bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
-    //        bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-    //        bullet.transform.localScale = new Vector3(30f, 30f, 30f);
-    //    }
-    //    else if (currentBullet == BulletType.Boomerang)
-    //    {
-    //        bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(-0.3f, 0.1f, 0.1f), Quaternion.identity, hand);
-    //        bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-    //        bullet.transform.localScale = new Vector3(8f, 8f, 8f);
-    //    }
-    //    Debug.Log("here");
-    //}
-    public virtual void GetWeapon()
+    public void GetWeapon()
     {
         if (currentWeapon == WeaponType.KnifeWeapon)
         {
-            bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
-            bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-            bullet.transform.localScale = new Vector3(30f, 30f, 30f);
+            knifePrefab.SetActive(true);
+            axePrefab.SetActive(false);
+            BoomerangPrefab.SetActive(false);
         }
         else if (currentWeapon == WeaponType.AxeWeapon)
         {
-            bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, new Vector3(-0.2f, 0.1f, 0.1f), Quaternion.identity, hand);
-            bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-            bullet.transform.localScale = new Vector3(30f, 30f, 30f);
+            knifePrefab.SetActive(false);
+            axePrefab.SetActive(true);
+            BoomerangPrefab.SetActive(false);
         }
         else if (currentWeapon == WeaponType.BoomerangWeapon)
         {
-            bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, new Vector3(-0.3f, 0.1f, 0.1f), Quaternion.identity, hand);
-            bullet.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
-            bullet.transform.localScale = new Vector3(8f, 8f, 8f);
+            knifePrefab.SetActive(false);
+            axePrefab.SetActive(false);
+            BoomerangPrefab.SetActive(true);
         }
         Debug.Log("here");
     }
-    //public virtual void OnShoot()
-    //{
-    //    RotateTarget();
-    //    if (target != null && canAttack && amountBullet > 0 && !isDead)
-    //    {
-    //        ChangeAnim("IsAttack");
-    //        Debug.Log("attack");
-    //        bullet.transform.SetParent(LevelManager.Ins.transform);
-    //        bullet.SetTarget(target.position);
-    //        bullet.SetRangeSize(radiusSize);
-    //        canAttack = false;
-    //        amountBullet = 0;
-    //        Invoke(nameof(ResetAttack), timeResetAttack);
-    //    }
-    //}
+    public virtual void OnShoot()
+    {
+        RotateTarget();
+        ChangeAnim("IsAttack");
+        weapon.SetActive(false);
+        if (target != null && canAttack && amountBullet > 0 && !isDead)
+        {
+            ChangeAnim("IsAttack");
+            switch (currentWeapon)
+            {
+                case WeaponType.KnifeWeapon:
+                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position, Quaternion.identity);
+                    break;
+                case WeaponType.AxeWeapon:
+                    bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, weapon.transform.position, Quaternion.identity);
+                    break;
+                case WeaponType.BoomerangWeapon:
+                    bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, weapon.transform.position, Quaternion.identity);
+                    break;
+            }
+            bullet.SetTarget(target.transform.position);
+            canAttack = false;
+            amountBullet = 0;
+            Invoke(nameof(ResetAttack), timeResetAttack);
+        }
+    }
     public void ResetAttack()
     {
         GetWeapon();
+        weapon.SetActive(true);
         canAttack = true;
     }
     public void RotateTarget()
     {
         if (target != null)
         {
-            Vector3 directionToTarget = target.position - transform.position;
-            directionToTarget.y = 0f;
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
+            charaterImg.transform.LookAt(new Vector3(target.position.x, 0f, target.position.z));
         }
     }
     protected void ChangeAnim(string newAnimName)

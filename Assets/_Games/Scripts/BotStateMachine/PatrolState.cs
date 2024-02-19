@@ -13,7 +13,7 @@ public class PatrolState : IState<Bot>
 
     public void OnExecute(Bot bot)
     {
-        if(bot.target != null)
+        if (bot.target != null)
         {
             bot.ChangeState(new AttackState());
         }

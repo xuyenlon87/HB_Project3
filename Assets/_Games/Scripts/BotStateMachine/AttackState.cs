@@ -24,7 +24,7 @@ public class AttackState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         timeChangeTarget += Time.deltaTime;
-        if (timeChangeTarget >= Random.Range(5,15) || bot.target == null)
+        if (timeChangeTarget >= Random.Range(5, 15) || bot.target == null)
         {
             bot.ChangeState(new PatrolState());
         }
