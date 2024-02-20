@@ -88,6 +88,7 @@ public class Character : GameUnit
 
     public void GetWeapon()
     {
+        weapon.SetActive(true);
         if (currentWeapon == WeaponType.KnifeWeapon)
         {
             knifePrefab.SetActive(true);
@@ -119,13 +120,13 @@ public class Character : GameUnit
             switch (currentWeapon)
             {
                 case WeaponType.KnifeWeapon:
-                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position, Quaternion.identity);
+                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position, weapon.transform.rotation);
                     break;
                 case WeaponType.AxeWeapon:
-                    bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, weapon.transform.position, Quaternion.identity);
+                    bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, weapon.transform.position, weapon.transform.rotation);
                     break;
                 case WeaponType.BoomerangWeapon:
-                    bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, weapon.transform.position, Quaternion.identity);
+                    bullet = SimplePool.Spawn<BulletBoomerang>(PoolType.Bullet_3, weapon.transform.position, weapon.transform.rotation);
                     break;
             }
             bullet.SetTarget(target.transform.position);
@@ -137,8 +138,8 @@ public class Character : GameUnit
     public void ResetAttack()
     {
         GetWeapon();
-        weapon.SetActive(true);
         canAttack = true;
+        ChangeAnim("IsIdle");
     }
     public void RotateTarget()
     {

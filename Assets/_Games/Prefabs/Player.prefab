@@ -216,7 +216,6 @@ MonoBehaviour:
   timeResetAttack: 0
   expPotionPrefab: {fileID: 6026782607143296688, guid: a583bbaeafcd58a4f81ccc50483724d7, type: 3}
   charaterImg: {fileID: 1896910735242308632}
-  currentBullet: 2
   bulletStart: {fileID: 4641142464745453341}
   anim: {fileID: 8419811018450567522}
   currentAnimName: 
@@ -382,7 +381,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3195330665697696438, guid: bda37398e7efbb54d91c8aa10ab011ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bda37398e7efbb54d91c8aa10ab011ba, type: 3}
 --- !u!4 &8707307043373631808 stripped
 Transform:
@@ -457,7 +457,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6062612028874553167, guid: 1c22cec4de822f14588d0296eaa1a6a4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1c22cec4de822f14588d0296eaa1a6a4, type: 3}
 --- !u!1 &1244562631630688179 stripped
 GameObject:
@@ -532,7 +533,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5234323152792276962, guid: a19938e50d37fa949afac3deb39aca40, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a19938e50d37fa949afac3deb39aca40, type: 3}
 --- !u!1 &9222298630967274597 stripped
 GameObject:
@@ -618,6 +620,47 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 6857181842075256578}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3172917447756406283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 6857181842075256578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6977595775357207709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3172917447756406283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59627c2c4d20368499ee147d24d33202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 0
+  sight: {fileID: 0}
+  speed: 0
+  amountBullet: 0
+  hp: 0
+  radiusSize: 0
+  target: {fileID: 0}
+  canAttack: 0
+  isDead: 0
+  level: 0
+  timeResetAttack: 0
+  expPotionPrefab: {fileID: 0}
+  charaterImg: {fileID: 0}
+  bulletStart: {fileID: 0}
+  anim: {fileID: 0}
+  currentAnimName: 
+  hand: {fileID: 0}
+  pool: {fileID: 0}
+  bullet: {fileID: 0}
+  currentWeapon: 0
+  knifePrefab: {fileID: 0}
+  axePrefab: {fileID: 0}
+  BoomerangPrefab: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!4 &6709403341108095943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -9064325173771588411, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}

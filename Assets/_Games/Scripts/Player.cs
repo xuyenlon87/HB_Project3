@@ -26,15 +26,9 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
+        if (rb.velocity.sqrMagnitude <= 0.1f)
         {
-            if (rb.velocity.sqrMagnitude <= 0.1f)
-            {
-                if (target != null)
-                {
-                    OnShoot();
-                }
-            }
+            OnShoot();
         }
     }
 
