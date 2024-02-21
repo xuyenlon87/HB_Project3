@@ -142,7 +142,6 @@ MonoBehaviour:
   canAttack: 0
   isDead: 0
   level: 0
-  timeResetAttack: 0
   expPotionPrefab: {fileID: 6026782607143296688, guid: a583bbaeafcd58a4f81ccc50483724d7, type: 3}
   charaterImg: {fileID: 3109869704994944685}
   bulletStart: {fileID: 2749960575453278049}
@@ -632,47 +631,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
---- !u!1 &2122079285684339902 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
-  m_PrefabInstance: {fileID: 7949643666058993079}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5214158077165518954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122079285684339902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59627c2c4d20368499ee147d24d33202, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poolType: 0
-  sight: {fileID: 0}
-  speed: 0
-  amountBullet: 0
-  hp: 0
-  radiusSize: 0
-  target: {fileID: 0}
-  canAttack: 0
-  isDead: 0
-  level: 0
-  timeResetAttack: 0
-  expPotionPrefab: {fileID: 0}
-  charaterImg: {fileID: 0}
-  bulletStart: {fileID: 0}
-  anim: {fileID: 0}
-  currentAnimName: 
-  hand: {fileID: 0}
-  pool: {fileID: 0}
-  bullet: {fileID: 0}
-  currentWeapon: 0
-  knifePrefab: {fileID: 0}
-  axePrefab: {fileID: 0}
-  BoomerangPrefab: {fileID: 0}
-  weapon: {fileID: 0}
 --- !u!4 &3109869704994944685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}

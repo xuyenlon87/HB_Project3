@@ -7,12 +7,22 @@ public class PatrolState : IState<Bot>
     public void OnEnter(Bot bot)
     {
         bot.target = null;
-        bot.navMesh.isStopped = false;
+        bot.StartMove();
         bot.StartCoroutine(bot.Move());
     }
 
     public void OnExecute(Bot bot)
     {
+        if (bot.navMesh.velocity.sqrMagnitude > 1f)
+        {
+            bot.charaterImg.transform.rotation = Quaternion.LookRotation(bot.navMesh.velocity);
+            bot.ChangeAnim("IsRun");
+            bot.amountBullet = 1;
+        }
+        else if (bot.target == null && bot.navMesh.velocity.sqrMagnitude < 1f)
+        {
+            bot.ChangeAnim("IsIdle");
+        }
         if (bot.target != null)
         {
             bot.ChangeState(new AttackState());

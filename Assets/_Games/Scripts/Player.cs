@@ -26,7 +26,7 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.sqrMagnitude <= 0.1f)
+        if(!isDead && rb.velocity.sqrMagnitude <= 1f && amountBullet >=1)
         {
             OnShoot();
         }
@@ -34,41 +34,29 @@ public class Player : Character
 
     private void Move()
     {
-        Vector3 direction = Vector3.forward * fixedJoystick.Vertical + Vector3.right * fixedJoystick.Horizontal;
-        rb.velocity = direction * speed;
-        if(GameManager.Ins.currentState == GameState.Start)
+        if (!isDead)
         {
-            charaterImg.transform.LookAt(Camera.main.transform);
+            Vector3 direction = Vector3.forward * fixedJoystick.Vertical + Vector3.right * fixedJoystick.Horizontal;
+            rb.velocity = direction * speed;
+            if (GameManager.Ins.currentState == GameState.Start)
+            {
+                charaterImg.transform.LookAt(Camera.main.transform);
+            }
+            if (rb.velocity.sqrMagnitude > 1f)
+            {
+                charaterImg.forward = direction;
+                amountBullet = 1;
+                ChangeAnim("IsRun");
+            }
+            else if (target ==null)
+            {
+                ChangeAnim("IsIdle");
+            }
         }
-        if (rb.velocity.sqrMagnitude > 1f)
-        {
-            charaterImg.forward = direction;
-            amountBullet = 1;
-            ChangeAnim("IsRun");
-        }
-        else if (rb.velocity.sqrMagnitude <= 1f)
-        {
-            ChangeAnim("IsIdle");
-        }
-
     }
     
     public override void OnInit()
     {
         base.OnInit();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bot"))
-        {
-            target = other.transform;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Bot"))
-        {
-            target = null;
-        }
     }
 }

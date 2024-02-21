@@ -21,20 +21,12 @@ public class Bot : Character
     // Update is called once per frame
     void Update()
     {
-        if (navMesh.velocity.sqrMagnitude > 1f)
+        if (!isDead)
         {
-            charaterImg.transform.rotation = Quaternion.LookRotation(navMesh.velocity);
-            ChangeAnim("IsRun");
-            amountBullet = 1;
-        }
-        if (navMesh.velocity.sqrMagnitude <= 1f)
-        {
-            ChangeAnim("IsIdle");
-        }
-
-        if (currentState != null && !isDead)
-        {
-            currentState.OnExecute(this);
+            if (currentState != null && !isDead)
+            {
+                currentState.OnExecute(this);
+            }
         }
     }
     public override void OnInit()
@@ -66,17 +58,21 @@ public class Bot : Character
     }
     public IEnumerator Move()
     {
-        while (true)
+        if (!isDead)
         {
-            targetPos = GetRandomPointOnNavMesh();
-            navMesh.SetDestination(targetPos);
-            yield return new WaitForSeconds(Random.Range(1f, 3f));
+            while (true)
+            {
+                targetPos = GetRandomPointOnNavMesh();
+                navMesh.SetDestination(targetPos);
+                yield return new WaitForSeconds(Random.Range(1f, 3f));
+            }
         }
     }
 
     public void Stop()
     {
         navMesh.isStopped = true;
+        ChangeAnim("IsIdle");
     }
     public void StartMove()
     {
@@ -86,40 +82,6 @@ public class Bot : Character
     {
         Stop();
         base.OnShoot();
-        Invoke(nameof(StartMove), 1f);
-    }
-    public IEnumerator MoveAroundAndShoot()
-    {
-        if (target != null)
-        {
-            navMesh.velocity = Vector3.zero;
-            while (target != null)
-            {
-                OnShoot();
-                yield return new WaitForSeconds(0.2f);
-                int random = Random.Range(-3,3);
-                Vector3 targetPosMoveAround = new Vector3(target.position.x + random, 0f, target.position.z + random);
-                navMesh.SetDestination(targetPosMoveAround);
-                yield return new WaitForSeconds(timeResetAttack - 0.1f);
-            }
-        }     
-    }
-    public IEnumerator AvoidAndShoot()
-    {
-        if (target != null)
-        {
-            navMesh.velocity = Vector3.zero;
-
-            while (target != null)
-            {
-                OnShoot();
-                yield return new WaitForSeconds(0.2f);
-                int random = Random.Range(-3, 3);
-                Vector3 targetAvoidAndShoot = new Vector3(transform.position.x + random, 0f, transform.position.z + random);
-                navMesh.SetDestination(targetAvoidAndShoot);
-                yield return new WaitForSeconds(timeResetAttack - 0.1f);
-            }
-        }
     }
     public void ChangeState(IState<Bot> newState)
     {
@@ -133,18 +95,4 @@ public class Bot : Character
             currentState.OnEnter(this);
         }
     }
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bot") || other.CompareTag("Player"))
-        {
-            target = other.transform;
-        }
-    }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Bot") || other.CompareTag("Player"))
-    //    {
-    //        target = null;
-    //    }
-    //}
 }

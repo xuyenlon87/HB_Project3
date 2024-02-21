@@ -13,10 +13,7 @@ public class Character : GameUnit
     public bool canAttack;
     public bool isDead;
     public int level;
-    public float timeResetAttack;
-    [SerializeField] GameObject expPotionPrefab;
     public Transform charaterImg;
-    public Transform bulletStart;
     public Animator anim;
     public string currentAnimName = null;
     public Transform hand;
@@ -38,7 +35,6 @@ public class Character : GameUnit
         isDead = false;
         level = 1;
         speed = 5f;
-        timeResetAttack = 2f;
         ChangeAnim("IsIdle");
         GetWeapon();
     }
@@ -68,13 +64,6 @@ public class Character : GameUnit
     public void OnDeath()
     {
         Destroy(gameObject);
-        int random = Random.Range(0, 100);
-        if(random < 30)
-        {
-            GameObject expPotion =  Instantiate(expPotionPrefab, new Vector3(transform.position.x, 0.25f, transform.position.z), Quaternion.identity, LevelManager.Ins.transform);
-            expPotion.GetComponent<Exp>().level = Random.Range(1, level + 1);
-            Debug.Log(random);
-        }
     }
     public void Upgrade(int add, Bot bot = null)
     {
@@ -107,16 +96,14 @@ public class Character : GameUnit
             axePrefab.SetActive(false);
             BoomerangPrefab.SetActive(true);
         }
-        Debug.Log("here");
     }
     public virtual void OnShoot()
     {
         RotateTarget();
         ChangeAnim("IsAttack");
-        weapon.SetActive(false);
+        Invoke(nameof(DeActiveWeapon), 0.5f);
         if (target != null && canAttack && amountBullet > 0 && !isDead)
         {
-            ChangeAnim("IsAttack");
             switch (currentWeapon)
             {
                 case WeaponType.KnifeWeapon:
@@ -132,7 +119,7 @@ public class Character : GameUnit
             bullet.SetTarget(target.transform.position);
             canAttack = false;
             amountBullet = 0;
-            Invoke(nameof(ResetAttack), timeResetAttack);
+            Invoke(nameof(ResetAttack), 1f);
         }
     }
     public void ResetAttack()
@@ -141,6 +128,11 @@ public class Character : GameUnit
         canAttack = true;
         ChangeAnim("IsIdle");
     }
+    
+    public void DeActiveWeapon()
+    {
+        weapon.SetActive(false);
+    }
     public void RotateTarget()
     {
         if (target != null)
@@ -148,7 +140,7 @@ public class Character : GameUnit
             charaterImg.transform.LookAt(new Vector3(target.position.x, 0f, target.position.z));
         }
     }
-    protected void ChangeAnim(string newAnimName)
+    public void ChangeAnim(string newAnimName)
     {
 
         if (currentAnimName != newAnimName)
@@ -156,6 +148,20 @@ public class Character : GameUnit
             anim.ResetTrigger(currentAnimName);
             currentAnimName = newAnimName;
             anim.SetTrigger(currentAnimName);
+        }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bot") || other.CompareTag("Player"))
+        {
+            target = other.transform;
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Bot") || other.CompareTag("Player"))
+        {
+            target = null;
         }
     }
 }
