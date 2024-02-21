@@ -101,7 +101,7 @@ public class Character : GameUnit
     {
         RotateTarget();
         ChangeAnim("IsAttack");
-        Invoke(nameof(DeActiveWeapon), 0.5f);
+        Invoke(nameof(DeActiveWeapon), 0.15f);
         if (target != null && canAttack && amountBullet > 0 && !isDead)
         {
             switch (currentWeapon)

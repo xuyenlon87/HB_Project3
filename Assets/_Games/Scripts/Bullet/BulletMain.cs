@@ -18,6 +18,7 @@ public class BulletMain : GameUnit
 
     private void Start()
     {
+        OnInit();
     }
     public void OnInit()
     {

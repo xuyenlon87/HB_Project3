@@ -142,9 +142,7 @@ MonoBehaviour:
   canAttack: 0
   isDead: 0
   level: 0
-  expPotionPrefab: {fileID: 6026782607143296688, guid: a583bbaeafcd58a4f81ccc50483724d7, type: 3}
   charaterImg: {fileID: 3109869704994944685}
-  bulletStart: {fileID: 2749960575453278049}
   anim: {fileID: 5017706820683979735}
   currentAnimName: 
   hand: {fileID: 7811425985631875442}

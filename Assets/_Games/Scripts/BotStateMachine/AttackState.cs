@@ -15,7 +15,7 @@ public class AttackState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         this.timeChangeTarget += Time.deltaTime;
-        if (timeChangeTarget >= 1f || bot.target == null)
+        if (timeChangeTarget >= 1f)
         {
             bot.ChangeState(new PatrolState());
         }
