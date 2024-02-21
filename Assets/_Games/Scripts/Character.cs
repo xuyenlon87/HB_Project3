@@ -40,6 +40,7 @@ public class Character : GameUnit
         speed = 5f;
         timeResetAttack = 2f;
         ChangeAnim("IsIdle");
+        GetWeapon();
     }
 
     public void OnHit(float damage)
@@ -88,7 +89,6 @@ public class Character : GameUnit
 
     public void GetWeapon()
     {
-        weapon.SetActive(true);
         if (currentWeapon == WeaponType.KnifeWeapon)
         {
             knifePrefab.SetActive(true);
@@ -137,7 +137,7 @@ public class Character : GameUnit
     }
     public void ResetAttack()
     {
-        GetWeapon();
+        weapon.SetActive(true);
         canAttack = true;
         ChangeAnim("IsIdle");
     }
