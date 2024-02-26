@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866510895082902783}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 6523850901566714803}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1866510895084194047
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
   - {fileID: 2100000, guid: b803d79c297ec8d49a4aec1d61852f64, type: 2}
   - {fileID: 2100000, guid: 8620ac39cfdb18647ab728bb03269c56, type: 2}
+  knifeImg: {fileID: 6523850901566714803}
 --- !u!64 &6603457161895421236
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -105,14 +106,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7796179183785897033}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1866510895083391199}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7138962607118950565
 MeshFilter:
   m_ObjectHideFlags: 0

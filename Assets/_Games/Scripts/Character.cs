@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,6 @@ public class Character : GameUnit
     public Transform charaterImg;
     public Animator anim;
     public string currentAnimName = null;
-    public Transform hand;
     public PoolControler pool;
     public BulletMain bullet;
     public WeaponType currentWeapon;
@@ -101,13 +101,20 @@ public class Character : GameUnit
     {
         RotateTarget();
         ChangeAnim("IsAttack");
-        Invoke(nameof(DeActiveWeapon), 0.15f);
+        StartCoroutine(Shoot());
+        
+    }
+
+    public IEnumerator Shoot()
+    {
+        yield return new WaitForSeconds(0.26f);
+        DeActiveWeapon();
         if (target != null && canAttack && amountBullet > 0 && !isDead)
         {
             switch (currentWeapon)
             {
                 case WeaponType.KnifeWeapon:
-                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position, weapon.transform.rotation);
+                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position + weapon.transform.forward * 0.1f, Quaternion.identity);
                     break;
                 case WeaponType.AxeWeapon:
                     bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, weapon.transform.position, weapon.transform.rotation);
@@ -119,11 +126,13 @@ public class Character : GameUnit
             bullet.SetTarget(target.transform.position);
             canAttack = false;
             amountBullet = 0;
-            Invoke(nameof(ResetAttack), 1f);
+            StartCoroutine(ResetAttack());
         }
     }
-    public void ResetAttack()
+
+    public IEnumerator ResetAttack()
     {
+        yield return new WaitForSeconds(1f);
         weapon.SetActive(true);
         canAttack = true;
         ChangeAnim("IsIdle");

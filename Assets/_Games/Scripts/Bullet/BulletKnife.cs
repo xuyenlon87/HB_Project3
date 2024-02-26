@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class BulletKnife : BulletMain
 {
     [SerializeField] private Renderer bulletKnifeRen;
     [SerializeField] private Material[] bulletKnifeMat;
+    [SerializeField] Transform knifeImg;
 
     private void Start()
     {
