@@ -3,7 +3,10 @@ guid: 68d8fa547691adf4d8dfb4a431c20e3a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - sumPlayer: {instanceID: 0}
+  - mainCam: {instanceID: 0}
+  - arrowPrefab: {fileID: 6343394052189165074, guid: 2f67c6e9286d08744887125be4568d2e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

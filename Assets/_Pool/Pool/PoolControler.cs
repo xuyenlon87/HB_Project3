@@ -155,6 +155,7 @@ public enum PoolType
     Bullet_8,
     Bullet_9,
     Bullet_10,
+    Arrow_1
 }
 
 

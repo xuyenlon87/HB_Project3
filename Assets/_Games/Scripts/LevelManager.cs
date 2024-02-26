@@ -7,6 +7,7 @@ public class LevelManager :  Singleton<LevelManager>
     public Transform poolObj;
     public Transform poolBullet;
     public int sumPlayer;
+    public List<Bot> listBot;
 
     private void Start()
     {
@@ -18,8 +19,9 @@ public class LevelManager :  Singleton<LevelManager>
         {
             float posX = Random.Range(-49, 50);
             float posZ = Random.Range(-49, 50);
-            SimplePool.Spawn<Bot>(PoolType.Character_1, new Vector3(posX, 0f, posZ), Quaternion.identity);
+            Bot bot = SimplePool.Spawn<Bot>(PoolType.Character_1, new Vector3(posX, 0f, posZ), Quaternion.identity);
             sumPlayer += 1;
+            listBot.Add(bot);
         }
     }
 }
