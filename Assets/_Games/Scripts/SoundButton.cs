@@ -9,5 +9,6 @@ public class SoundButton : Button
     {
         base.Awake();
         onClick.AddListener(() => SoundManager.Ins.PlaySound(SoundManager.Ins.click));
+
     }
 }

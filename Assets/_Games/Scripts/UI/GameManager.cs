@@ -81,12 +81,12 @@ public class GameManager : Singleton<GameManager>
 
     private void WinGame()
     {
-        throw new NotImplementedException();
+        UIManager.Ins.OpenUI<Lose>();
     }
 
     private void LoseGame()
     {
-        throw new NotImplementedException();
+        UIManager.Ins.OpenUI<Lose>();
     }
 
     private void PauseGame()

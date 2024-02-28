@@ -11,7 +11,7 @@ public class LevelManager :  Singleton<LevelManager>
 
     private void Start()
     {
-        sumPlayer = 1;
+        sumPlayer = 0;
     }
     public void SpawnBot(int count)
     {
@@ -24,4 +24,5 @@ public class LevelManager :  Singleton<LevelManager>
             listBot.Add(bot);
         }
     }
+
 }

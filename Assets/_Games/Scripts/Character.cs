@@ -51,6 +51,10 @@ public class Character : GameUnit
                 ChangeAnim("IsDead");
                 LevelManager.Ins.sumPlayer -= 1;
                 Invoke(nameof(OnDeath), 1.5f);
+                if(LevelManager.Ins.listBot.Count <= 0)
+                {
+                    GameManager.Ins.ChangeState(GameState.Win);
+                }
             }
         }
     }
@@ -66,36 +70,38 @@ public class Character : GameUnit
         SoundManager.Ins.PlaySoundAt(SoundManager.Ins.die, gameObject.transform.position);
         Destroy(gameObject);
     }
-    public void Upgrade(int add, Bot bot = null)
-    {
-        speed += add * 0.05f;
-        charaterImg.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
-        radiusSize += add * 0.05f;
-        level += add;
-        sight.transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
-        bot.SetSpeed(speed);
-
-    }
+    //public void Upgrade(int add, Bot bot = null)
+    //{
+    //    speed += add * 0.05f;
+    //    charaterImg.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
+    //    radiusSize += add * 0.05f;
+    //    level += add;
+    //    sight.transform.localScale += new Vector3(add * 0.05f, add * 0.05f, add * 0.05f);
+    //    bot.SetSpeed(speed);
+    //}
 
     public void GetWeapon()
     {
-        if (currentWeapon == WeaponType.KnifeWeapon)
+        if (!isDead)
         {
-            knifePrefab.SetActive(true);
-            axePrefab.SetActive(false);
-            BoomerangPrefab.SetActive(false);
-        }
-        else if (currentWeapon == WeaponType.AxeWeapon)
-        {
-            knifePrefab.SetActive(false);
-            axePrefab.SetActive(true);
-            BoomerangPrefab.SetActive(false);
-        }
-        else if (currentWeapon == WeaponType.BoomerangWeapon)
-        {
-            knifePrefab.SetActive(false);
-            axePrefab.SetActive(false);
-            BoomerangPrefab.SetActive(true);
+            if (currentWeapon == WeaponType.KnifeWeapon)
+            {
+                knifePrefab.SetActive(true);
+                axePrefab.SetActive(false);
+                BoomerangPrefab.SetActive(false);
+            }
+            else if (currentWeapon == WeaponType.AxeWeapon)
+            {
+                knifePrefab.SetActive(false);
+                axePrefab.SetActive(true);
+                BoomerangPrefab.SetActive(false);
+            }
+            else if (currentWeapon == WeaponType.BoomerangWeapon)
+            {
+                knifePrefab.SetActive(false);
+                axePrefab.SetActive(false);
+                BoomerangPrefab.SetActive(true);
+            }
         }
     }
     public virtual void OnShoot()
@@ -116,7 +122,8 @@ public class Character : GameUnit
             switch (currentWeapon)
             {
                 case WeaponType.KnifeWeapon:
-                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position + weapon.transform.forward * 0.1f, Quaternion.identity);
+                    bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position, Quaternion.identity);
+                    bullet.transform.LookAt(target);
                     break;
                 case WeaponType.AxeWeapon:
                     bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, weapon.transform.position, weapon.transform.rotation);
@@ -128,8 +135,8 @@ public class Character : GameUnit
             bullet.SetTarget(target.transform.position);
             canAttack = false;
             amountBullet = 0;
-            StartCoroutine(ResetAttack());
         }
+        StartCoroutine(ResetAttack());
     }
 
     public IEnumerator ResetAttack()
@@ -137,7 +144,10 @@ public class Character : GameUnit
         yield return new WaitForSeconds(1f);
         weapon.SetActive(true);
         canAttack = true;
-        ChangeAnim("IsIdle");
+        if (!isDead)
+        {
+            ChangeAnim("IsIdle");
+        }
     }
     
     public void DeActiveWeapon()

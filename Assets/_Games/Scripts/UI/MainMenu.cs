@@ -22,4 +22,9 @@ public class MainMenu : UICanvas
         UIManager.Ins.OpenUI<Shop>();
         Close(0);
     }
+    public void ButtonSetting()
+    {
+        UIManager.Ins.OpenUI<Setting>();
+        Close(0);
+    }
 }

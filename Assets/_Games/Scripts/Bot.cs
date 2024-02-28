@@ -46,7 +46,7 @@ public class Bot : Character
     private Vector3 GetRandomPointOnNavMesh()
     {
         Vector3 randomPoint = new Vector3(transform.position.x + Random.Range(-10, 10), 0, transform.position.z + Random.Range(-10, 10));
-        if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas) && !isDead)
         {
             return hit.position;
         }

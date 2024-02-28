@@ -1,7 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SoundManager : Singleton<SoundManager>
 {
     public AudioSource musicSource;
@@ -11,6 +10,7 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip backgroundMusic;
     public AudioClip attack;
     public AudioClip onHit;
+
 
     public void PlayBackgroundMusic()
     {
@@ -32,5 +32,4 @@ public class SoundManager : Singleton<SoundManager>
     {
         AudioSource.PlayClipAtPoint(sound, position);
     }
-
 }

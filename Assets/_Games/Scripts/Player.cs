@@ -6,8 +6,6 @@ public class Player : Character
 {
     [SerializeField] private FixedJoystick fixedJoystick;
     private Rigidbody rb;
-    public Transform weaponPlayer;
-
     public void FixedUpdate()
     {
         Move();
@@ -58,5 +56,6 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
+        LevelManager.Ins.sumPlayer += 1;
     }
 }

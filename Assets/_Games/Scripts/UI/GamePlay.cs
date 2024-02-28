@@ -15,7 +15,6 @@ public class GamePlay : UICanvas
     private void Update()
     {
         sumPlayer.text = LevelManager.Ins.sumPlayer.ToString();
-
     }
     public void WinButton()
     {
@@ -32,5 +31,6 @@ public class GamePlay : UICanvas
     public void SettingButton()
     {
         UIManager.Ins.OpenUI<Setting>();
+        Close(0);
     }
 }
