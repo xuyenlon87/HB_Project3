@@ -45,6 +45,7 @@ public class BulletMain : GameUnit
     //    {
     //        other.GetComponent<Character>().OnHit(dame);
     //        Debug.Log("trigger");
+    //        SoundManager.Ins.PlaySoundAt(SoundManager.Ins.onHit, gameObject.transform.position);
     //    }
     //}
 }

@@ -63,6 +63,7 @@ public class Character : GameUnit
     }
     public void OnDeath()
     {
+        SoundManager.Ins.PlaySoundAt(SoundManager.Ins.die, gameObject.transform.position);
         Destroy(gameObject);
     }
     public void Upgrade(int add, Bot bot = null)
@@ -101,6 +102,7 @@ public class Character : GameUnit
     {
         RotateTarget();
         ChangeAnim("IsAttack");
+        SoundManager.Ins.PlaySoundAt(SoundManager.Ins.attack, gameObject.transform.position);
         StartCoroutine(Shoot());
         
     }
