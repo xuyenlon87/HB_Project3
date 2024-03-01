@@ -25,7 +25,7 @@ public class BulletBoomerang : BulletMain
             }
             if (Vector3.Distance(target, startPos) <= 0.1f && Vector3.Distance(transform.position, startPos) <= 0.1f)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
 

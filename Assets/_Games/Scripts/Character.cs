@@ -68,7 +68,7 @@ public class Character : GameUnit
     public void OnDeath()
     {
         SoundManager.Ins.PlaySoundAt(SoundManager.Ins.die, gameObject.transform.position);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     //public void Upgrade(int add, Bot bot = null)
     //{

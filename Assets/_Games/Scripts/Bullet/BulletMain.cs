@@ -44,12 +44,12 @@ public class BulletMain : GameUnit
         if (other.CompareTag("Player") || other.CompareTag("Bot"))
         {
             other.GetComponent<Character>().OnHit(dame);
-            Debug.Log("trigger");
             SoundManager.Ins.PlaySoundAt(SoundManager.Ins.onHit, gameObject.transform.position);
             if (other.CompareTag("Player"))
             {
                 GameManager.Ins.ChangeState(GameState.Lose);
             }
+            gameObject.SetActive(false);
         }
     }
 }

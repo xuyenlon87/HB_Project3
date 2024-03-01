@@ -11,6 +11,8 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip attack;
     public AudioClip onHit;
 
+    public bool sfxOn;
+
 
     public void PlayBackgroundMusic()
     {
@@ -30,6 +32,14 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void PlaySoundAt(AudioClip sound, Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(sound, position);
+        if (Setting.soundOn)
+        {
+            AudioSource.PlayClipAtPoint(sound, position);
+
+        }
     }
+    public void SetSFXVolume(float volume)
+{
+    sfxSource.volume = volume;
+}
 }

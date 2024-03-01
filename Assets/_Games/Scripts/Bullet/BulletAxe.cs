@@ -22,7 +22,7 @@ public class BulletAxe : BulletMain
             transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
             if (Vector3.Distance(startPos, transform.position) >= rangeSize || Vector3.Distance(transform.position, target) <= 0.1f)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
 
