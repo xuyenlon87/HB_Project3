@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
     private void FixedUpdate()
     {
         transform.rotation = Quaternion.Euler(rotationX, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-        if (target != null && GameManager.Ins.currentState == GameState.Play)
+        if (target != null && (GameManager.Ins.currentState == GameState.Play || GameManager.Ins.currentState == GameState.Win))
         {
             rotationX = 45f;
             transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * speed);

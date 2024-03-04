@@ -81,7 +81,7 @@ public class GameManager : Singleton<GameManager>
 
     private void WinGame()
     {
-        UIManager.Ins.OpenUI<Lose>();
+        UIManager.Ins.OpenUI<Win>();
     }
 
     private void LoseGame()
@@ -96,7 +96,7 @@ public class GameManager : Singleton<GameManager>
 
     private void PlayGame()
     {
-        LevelManager.Ins.SpawnBot(49);
+        LevelManager.Ins.SpawnBot(1);
     }
 
     private void StartGame()

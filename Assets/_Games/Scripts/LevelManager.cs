@@ -29,5 +29,18 @@ public class LevelManager :  Singleton<LevelManager>
     public void UpdateGold( int gold)
     {
         sumGold += gold;
+        SaveGold();
+    }
+    public void SaveGold()
+    {
+        PlayerPrefs.SetInt("Gold", sumGold);
+        PlayerPrefs.Save();
+    }
+    public void LoadGold()
+    {
+        if (PlayerPrefs.HasKey("Gold"))
+        {
+            sumGold = PlayerPrefs.GetInt("Gold");
+        }
     }
 }

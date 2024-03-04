@@ -51,7 +51,7 @@ public class Character : GameUnit
                 ChangeAnim("IsDead");
                 LevelManager.Ins.sumPlayer -= 1;
                 Invoke(nameof(OnDeath), 1.5f);
-                if(LevelManager.Ins.listBot.Count <= 0)
+                if(LevelManager.Ins.sumPlayer <= 1)
                 {
                     GameManager.Ins.ChangeState(GameState.Win);
                 }
