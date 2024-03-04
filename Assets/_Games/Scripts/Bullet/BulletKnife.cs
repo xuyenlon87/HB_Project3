@@ -24,7 +24,7 @@ public class BulletKnife : BulletMain
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
             if (Vector3.Distance(startPos, transform.position) >= rangeSize || Vector3.Distance(transform.position, target) <= 0.1f)
             {
-                gameObject.SetActive(false);
+                Destroy(gameObject);
             }
         }
     }
@@ -38,9 +38,5 @@ public class BulletKnife : BulletMain
         {
             bulletKnifeRen.material = bulletKnifeMat[0];
         }
-    }
-    public void RotateTowardsTarget(Vector3 targetPosition)
-    {
-        transform.LookAt(targetPosition);
     }
 }

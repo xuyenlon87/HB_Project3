@@ -15,11 +15,6 @@ public enum GameState
 }
 public class GameManager : Singleton<GameManager>
 {
-    private const string goldKey = "Gold";
-    private const string soundOnKey = "SoundOn";
-
-    private int gold;
-    private bool soundOn = true;
     public GameState currentState;
     public static GameManager instance { get; private set; }
     //[SerializeField] UserData userData;
@@ -86,7 +81,7 @@ public class GameManager : Singleton<GameManager>
 
     private void WinGame()
     {
-        UIManager.Ins.OpenUI<Win>();
+        UIManager.Ins.OpenUI<Lose>();
     }
 
     private void LoseGame()
@@ -102,28 +97,10 @@ public class GameManager : Singleton<GameManager>
     private void PlayGame()
     {
         LevelManager.Ins.SpawnBot(49);
-        UIManager.Ins.OpenUI<GamePlay>();
     }
 
     private void StartGame()
     {
         UIManager.Ins.OpenUI<MainMenu>();
-    }
-
-    private void SaveGameData()
-    {
-        PlayerPrefs.SetInt(goldKey, gold);
-        PlayerPrefs.SetInt(soundOnKey, soundOn ? 1 : 0);
-        PlayerPrefs.Save();
-    }
-    private void LoadGameData()
-    {
-        gold = PlayerPrefs.GetInt(goldKey, 0);
-        soundOn = PlayerPrefs.GetInt(soundOnKey, 1) == 1 ? true : false;
-    }
-    public void ChangeGold(int amount)
-    {
-        gold += amount;
-        SaveGameData();
     }
 }

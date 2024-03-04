@@ -8,6 +8,10 @@ public class GamePlay : UICanvas
     [SerializeField] private Text sumPlayer;
 
 
+    private void Start()
+    {
+
+    }
     private void Update()
     {
         sumPlayer.text = LevelManager.Ins.sumPlayer.ToString();
