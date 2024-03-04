@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : UICanvas
 {
+    public Text goldText;
     public void PlayButton()
     {
         UIManager.Ins.OpenUI<GamePlay>();
@@ -26,5 +28,9 @@ public class MainMenu : UICanvas
     {
         UIManager.Ins.OpenUI<Setting>();
         Close(0);
+    }
+    private void Start()
+    {
+        goldText.text = LevelManager.Ins.sumGold.ToString();
     }
 }

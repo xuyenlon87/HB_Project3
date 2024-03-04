@@ -106,6 +106,7 @@ public class Character : GameUnit
     }
     public virtual void OnShoot()
     {
+        canAttack = false;
         RotateTarget();
         ChangeAnim("IsAttack");
         SoundManager.Ins.PlaySoundAt(SoundManager.Ins.attack, gameObject.transform.position);
@@ -117,7 +118,7 @@ public class Character : GameUnit
     {
         yield return new WaitForSeconds(0.26f);
         DeActiveWeapon();
-        if (target != null && canAttack && amountBullet > 0 && !isDead)
+        if (target != null && amountBullet > 0 && !isDead)
         {
             switch (currentWeapon)
             {

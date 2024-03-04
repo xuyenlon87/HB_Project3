@@ -213,7 +213,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 123
+  m_Text: 
 --- !u!1 &2975191187353477620
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,3 +569,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
   score: {fileID: 2975191187034923439}
+  gold: 0

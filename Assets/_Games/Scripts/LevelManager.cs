@@ -8,10 +8,11 @@ public class LevelManager :  Singleton<LevelManager>
     public Transform poolBullet;
     public int sumPlayer;
     public List<Bot> listBot;
+    public int sumGold;
 
     private void Start()
     {
-        sumPlayer = 0;
+        sumPlayer = 1;
     }
     public void SpawnBot(int count)
     {
@@ -25,4 +26,8 @@ public class LevelManager :  Singleton<LevelManager>
         }
     }
 
+    public void UpdateGold( int gold)
+    {
+        sumGold += gold;
+    }
 }
