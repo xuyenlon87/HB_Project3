@@ -1185,6 +1185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4641142464769395760, guid: 4b50fd7da5bc7bb40ad6ae10442734db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4641142464769395764, guid: 4b50fd7da5bc7bb40ad6ae10442734db, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1620,6 +1624,17 @@ MonoBehaviour:
   offset: {x: 0, y: 12, z: -12}
   offsetStart: {x: 0, y: 0, z: -5}
   speed: 2
+--- !u!114 &1559401427 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4641142464769395765, guid: 4b50fd7da5bc7bb40ad6ae10442734db, type: 3}
+  m_PrefabInstance: {fileID: 947253820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e10ad9c6324a440ac5aaa7e259675e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1630596253 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3f7b91a314bb3e241be7227ecb9b817f, type: 3}
@@ -1820,6 +1835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  player: {fileID: 1559401427}
 --- !u!4 &1924250527
 Transform:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class MainMenu : UICanvas
         UIManager.Ins.OpenUI<Setting>();
         Close(0);
     }
-    private void Start()
+    private void Update()
     {
         LevelManager.Ins.LoadGold();
         goldText.text = LevelManager.Ins.sumGold.ToString();

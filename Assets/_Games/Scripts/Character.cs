@@ -48,13 +48,14 @@ public class Character : GameUnit
             {
                 hp = 0;
                 isDead = true;
-                ChangeAnim("IsDead");
                 LevelManager.Ins.sumPlayer -= 1;
-                Invoke(nameof(OnDeath), 1.5f);
-                if(LevelManager.Ins.sumPlayer <= 1)
+                ChangeAnim("IsDead");
+                if (LevelManager.Ins.listBot.Count <= 0 && LevelManager.Ins.sumPlayer <= 1)
                 {
                     GameManager.Ins.ChangeState(GameState.Win);
                 }
+                Invoke(nameof(OnDeath), 1.5f);
+
             }
         }
     }
@@ -68,7 +69,7 @@ public class Character : GameUnit
     public void OnDeath()
     {
         SoundManager.Ins.PlaySoundAt(SoundManager.Ins.die, gameObject.transform.position);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     //public void Upgrade(int add, Bot bot = null)
     //{

@@ -14,8 +14,6 @@ public class Bot : Character
     void Start()
     {
         OnInit();
-        currentWeapon = (WeaponType)Random.Range(0, 3);
-        GetWeapon();
     }
 
     // Update is called once per frame
@@ -35,7 +33,8 @@ public class Bot : Character
         navMesh = GetComponent<NavMeshAgent>();
         navMesh.speed = speed;
         ChangeState(new PatrolState());
-
+        currentWeapon = (WeaponType)Random.Range(0, 3);
+        GetWeapon();
     }
 
     public float SetSpeed(float speed)

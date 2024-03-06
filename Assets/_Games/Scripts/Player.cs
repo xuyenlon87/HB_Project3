@@ -56,6 +56,11 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
+        rb.velocity = Vector3.zero;
         LevelManager.Ins.sumPlayer += 1;
+        gameObject.SetActive(true);
+        gameObject.transform.position = new Vector3(0, 1, 0);
+        target = null;
+        ChangeAnim("null");
     }
 }

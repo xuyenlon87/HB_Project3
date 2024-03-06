@@ -11,6 +11,7 @@ public class Win : UICanvas
     {
         UIManager.Ins.OpenUI<MainMenu>();
         UIManager.Ins.CloseUI<GamePlay>();
+        GameManager.Ins.ChangeState(GameState.Start);
         Close(0);
     }
     private void Start()

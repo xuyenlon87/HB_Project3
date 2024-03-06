@@ -23,7 +23,7 @@ public class PatrolState : IState<Bot>
         {
             bot.ChangeAnim("IsIdle");
         }
-        if (bot.target != null && Vector3.Distance(bot.transform.position, bot.targetPos) <= 1f)
+        if (bot.target != null && Vector3.Distance(bot.transform.position, bot.targetPos) <= 5f)
         {
             bot.ChangeState(new AttackState());
         }

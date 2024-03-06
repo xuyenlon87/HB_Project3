@@ -16,6 +16,7 @@ public enum GameState
 public class GameManager : Singleton<GameManager>
 {
     public GameState currentState;
+    [SerializeField] Player player;
     public static GameManager instance { get; private set; }
     //[SerializeField] UserData userData;
     //[SerializeField] CSVData csv;
@@ -96,11 +97,20 @@ public class GameManager : Singleton<GameManager>
 
     private void PlayGame()
     {
-        LevelManager.Ins.SpawnBot(1);
+        LevelManager.Ins.SpawnBot(49);
+
     }
 
     private void StartGame()
     {
+        SimplePool.CollectAll();
+        if (player != null)
+        {
+            player.OnInit();
+            LevelManager.Ins.sumPlayer = 1;
+        }
+        LevelManager.Ins.LoadGold();
         UIManager.Ins.OpenUI<MainMenu>();
+        LevelManager.Ins.listBot.Clear();
     }
 }
