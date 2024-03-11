@@ -82,11 +82,13 @@ public class GameManager : Singleton<GameManager>
 
     private void WinGame()
     {
+        UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<Win>();
     }
 
     private void LoseGame()
     {
+        UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<Lose>();
     }
 
@@ -97,19 +99,17 @@ public class GameManager : Singleton<GameManager>
 
     private void PlayGame()
     {
+        player.OnInit();
         LevelManager.Ins.SpawnBot(49);
-
     }
 
     private void StartGame()
     {
         SimplePool.CollectAll();
-        if (player != null)
-        {
-            player.OnInit();
-            LevelManager.Ins.sumPlayer = 1;
-        }
+        player.OnInit();
+        LevelManager.Ins.sumPlayer = 1;
         LevelManager.Ins.LoadGold();
+        SoundManager.Ins.LoadSound();
         UIManager.Ins.OpenUI<MainMenu>();
         LevelManager.Ins.listBot.Clear();
     }

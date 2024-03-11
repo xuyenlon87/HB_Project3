@@ -9,8 +9,8 @@ public class MainMenu : UICanvas
     public void PlayButton()
     {
         UIManager.Ins.OpenUI<GamePlay>();
-        Close(0);
         GameManager.Ins.ChangeState(GameState.Play);
+        Close(0);
     }
 
     public void ButtonWeapon()

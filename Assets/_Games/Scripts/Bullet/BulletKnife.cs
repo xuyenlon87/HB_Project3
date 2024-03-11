@@ -7,7 +7,7 @@ public class BulletKnife : BulletMain
 {
     [SerializeField] private Renderer bulletKnifeRen;
     [SerializeField] private Material[] bulletKnifeMat;
-    [SerializeField] Transform knifeImg;
+    public GameObject knifeImg;
 
     private void Start()
     {
@@ -21,8 +21,8 @@ public class BulletKnife : BulletMain
     {
         if(target != null)
         {
-            transform.LookAt(target);
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3 (target.x, 1, target.z), speed * Time.deltaTime);
+            knifeImg.transform.LookAt(target);
             if (Vector3.Distance(startPos, transform.position) >= rangeSize || Vector3.Distance(transform.position, target) <= 0.1f)
             {
                 Destroy(gameObject);

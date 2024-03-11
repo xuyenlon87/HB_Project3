@@ -10,8 +10,12 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip backgroundMusic;
     public AudioClip attack;
     public AudioClip onHit;
+    public bool soundOn;
 
-
+    private void Start()
+    {
+        LoadSound();
+    }
     public void PlayBackgroundMusic()
     {
         musicSource.clip = backgroundMusic;
@@ -30,6 +34,18 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void PlaySoundAt(AudioClip sound, Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(sound, position);
+        if (soundOn)
+        {
+            AudioSource.PlayClipAtPoint(sound, position);
+
+        }
+    }
+    public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
+    }
+    public void LoadSound()
+    {
+        soundOn = (PlayerPrefs.GetInt("SoundOn") == 1) ? true : false;
     }
 }

@@ -125,7 +125,6 @@ public class Character : GameUnit
             {
                 case WeaponType.KnifeWeapon:
                     bullet = SimplePool.Spawn<BulletKnife>(PoolType.Bullet_1, weapon.transform.position, Quaternion.identity);
-                    bullet.transform.LookAt(target);
                     break;
                 case WeaponType.AxeWeapon:
                     bullet = SimplePool.Spawn<BulletAxe>(PoolType.Bullet_2, weapon.transform.position, weapon.transform.rotation);
