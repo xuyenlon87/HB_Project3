@@ -56,6 +56,7 @@ public class BulletMain : GameUnit
                 Bot bot = other.GetComponent<Bot>();
                 LevelManager.Ins.listBot.Remove(bot);
                 bot.OnHit(dame);
+                Destroy(gameObject);
             }
         }
     }

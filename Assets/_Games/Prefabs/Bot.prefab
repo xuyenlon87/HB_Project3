@@ -147,7 +147,7 @@ MonoBehaviour:
   currentAnimName: 
   pool: {fileID: 0}
   bullet: {fileID: 0}
-  currentWeapon: 0
+  currentWeapon: 1
   knifePrefab: {fileID: 1828577373175361354}
   axePrefab: {fileID: 6229390030667191764}
   BoomerangPrefab: {fileID: 1417158600026673979}

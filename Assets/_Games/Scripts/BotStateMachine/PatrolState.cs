@@ -25,6 +25,8 @@ public class PatrolState : IState<Bot>
         }
         if (bot.target != null && Vector3.Distance(bot.transform.position, bot.targetPos) <= 5f)
         {
+            bot.Stop();
+            bot.StopCoroutine(bot.Move());
             bot.ChangeState(new AttackState());
         }
     }

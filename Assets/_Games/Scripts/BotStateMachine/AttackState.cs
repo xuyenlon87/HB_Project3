@@ -9,7 +9,6 @@ public class AttackState : IState<Bot>
     public void OnEnter(Bot bot)
     {
         timeChangeState = Random.Range(0.5f, 0.8f);
-        bot.Stop();
         this.timeChangeTarget = 0;
         bot.OnShoot();
     }
