@@ -142,6 +142,7 @@ public class Character : GameUnit
 
     public IEnumerator ResetAttack()
     {
+        target = null;
         yield return new WaitForSeconds(1f);
         weapon.SetActive(true);
         canAttack = true;
